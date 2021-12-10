@@ -1,0 +1,172 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Monitoring>
+  <Discoveries>
+    <Discovery ID="Microsoft.Windows.Computer.Addendum.Extended.Class.Discovery" Enabled="true" Target="Windows!Microsoft.Windows.OperatingSystem" ConfirmDelivery="false" Remotable="false" Priority="Normal">
+      <Category>Discovery</Category>
+      <DiscoveryTypes>
+        <DiscoveryClass TypeID="Microsoft.Windows.Computer.Addendum.Extended.Class">
+          <Property TypeID="Microsoft.Windows.Computer.Addendum.Extended.Class" PropertyID="Division" />
+          <Property TypeID="Microsoft.Windows.Computer.Addendum.Extended.Class" PropertyID="Service" />
+          <Property TypeID="Microsoft.Windows.Computer.Addendum.Extended.Class" PropertyID="Environment" />
+          <Property TypeID="Microsoft.Windows.Computer.Addendum.Extended.Class" PropertyID="Contact" />
+        </DiscoveryClass>
+      </DiscoveryTypes>
+      <DataSource ID="DS" TypeID="Windows!Microsoft.Windows.FilteredRegistryDiscoveryProvider">
+        <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+        <RegistryAttributeDefinitions>
+          <RegistryAttributeDefinition>
+            <AttributeName>LabExists</AttributeName>
+            <Path>SOFTWARE\Lab</Path>
+            <PathType>0</PathType>
+            <AttributeType>0</AttributeType>
+          </RegistryAttributeDefinition>
+          <RegistryAttributeDefinition>
+            <AttributeName>Division</AttributeName>
+            <Path>SOFTWARE\Microsoft\Microsoft Operations Manager\MP\$Target/ManagementGroup/Name$\Division</Path>
+            <PathType>1</PathType>
+            <AttributeType>1</AttributeType>
+          </RegistryAttributeDefinition>
+          <RegistryAttributeDefinition>
+            <AttributeName>Service</AttributeName>
+            <Path>SOFTWARE\Microsoft\Microsoft Operations Manager\MP\$Target/ManagementGroup/Name$\Service</Path>
+            <PathType>1</PathType>
+            <AttributeType>1</AttributeType>
+          </RegistryAttributeDefinition>
+          <RegistryAttributeDefinition>
+            <AttributeName>Environment</AttributeName>
+            <Path>SOFTWARE\Microsoft\Microsoft Operations Manager\MP\$Target/ManagementGroup/Name$\Environment</Path>
+            <PathType>1</PathType>
+            <AttributeType>1</AttributeType>
+          </RegistryAttributeDefinition>
+          <RegistryAttributeDefinition>
+            <AttributeName>Contact</AttributeName>
+            <Path>SOFTWARE\Microsoft\Microsoft Operations Manager\MP\$Target/ManagementGroup/Name$\Contact</Path>
+            <PathType>1</PathType>
+            <AttributeType>1</AttributeType>
+          </RegistryAttributeDefinition>
+        </RegistryAttributeDefinitions>
+        <Frequency>86400</Frequency>
+        <ClassId>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]$</ClassId>
+        <InstanceSettings>
+          <Settings>
+            <Setting>
+              <Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Name>
+              <Value>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Value>
+            </Setting>
+            <Setting>
+              <Name>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]/Division$</Name>
+              <Value>$Data/Values/Division$</Value>
+            </Setting>
+            <Setting>
+              <Name>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]/Service$</Name>
+              <Value>$Data/Values/Service$</Value>
+            </Setting>
+            <Setting>
+              <Name>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]/Environment$</Name>
+              <Value>$Data/Values/Environment$</Value>
+            </Setting>
+            <Setting>
+              <Name>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]/Contact$</Name>
+              <Value>$Data/Values/Contact$</Value>
+            </Setting>
+          </Settings>
+        </InstanceSettings>
+        <Expression>
+          <SimpleExpression>
+            <ValueExpression>
+              <XPathQuery Type="Boolean">Values/LabExists</XPathQuery>
+            </ValueExpression>
+            <Operator>Equal</Operator>
+            <ValueExpression>
+              <Value Type="Boolean">true</Value>
+            </ValueExpression>
+          </SimpleExpression>
+        </Expression>
+      </DataSource>
+    </Discovery>
+    <Discovery ID="Microsoft.Windows.Computer.Addendum.Extended.Group.DiscoveryRule" Enabled="true" Target="Microsoft.Windows.Computer.Addendum.Extended.Group" ConfirmDelivery="false" Remotable="true" Priority="Normal">
+      <Category>Discovery</Category>
+      <DiscoveryTypes>
+        <DiscoveryRelationship TypeID="MSIGL!Microsoft.SystemCenter.InstanceGroupContainsEntities" />
+      </DiscoveryTypes>
+      <DataSource ID="GroupPopulationDataSource" TypeID="SC!Microsoft.SystemCenter.GroupPopulator">
+        <RuleId>$MPElement$</RuleId>
+        <GroupInstanceId>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Group"]$</GroupInstanceId>
+        <MembershipRules>
+          <MembershipRule>
+            <MonitoringClass>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]$</MonitoringClass>
+            <RelationshipClass>$MPElement[Name="MSIGL!Microsoft.SystemCenter.InstanceGroupContainsEntities"]$</RelationshipClass>
+            <Expression>
+              <SimpleExpression>
+                <ValueExpression>
+                  <Property>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]/Environment$</Property>
+                </ValueExpression>
+                <Operator>Equal</Operator>
+                <ValueExpression>
+                  <Value>Test</Value>
+                </ValueExpression>
+              </SimpleExpression>
+            </Expression>
+          </MembershipRule>
+          <MembershipRule>
+            <MonitoringClass>$MPElement[Name="MWSL!Microsoft.Windows.Server.NetworkAdapter"]$</MonitoringClass>
+            <RelationshipClass>$MPElement[Name="MSIGL!Microsoft.SystemCenter.InstanceGroupContainsEntities"]$</RelationshipClass>
+            <Expression>
+              <Contained>
+                <MonitoringClass>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]$</MonitoringClass>
+                <Expression>
+                  <Contained>
+                    <MonitoringClass>$Target/Id$</MonitoringClass>
+                  </Contained>
+                </Expression>
+              </Contained>
+            </Expression>
+          </MembershipRule>
+          <MembershipRule>
+            <MonitoringClass>$MPElement[Name="MWSL!Microsoft.Windows.Server.LogicalDisk"]$</MonitoringClass>
+            <RelationshipClass>$MPElement[Name="MSIGL!Microsoft.SystemCenter.InstanceGroupContainsEntities"]$</RelationshipClass>
+            <Expression>
+              <Contained>
+                <MonitoringClass>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]$</MonitoringClass>
+                <Expression>
+                  <Contained>
+                    <MonitoringClass>$Target/Id$</MonitoringClass>
+                  </Contained>
+                </Expression>
+              </Contained>
+            </Expression>
+          </MembershipRule>
+          <MembershipRule>
+            <MonitoringClass>$MPElement[Name="Windows!Microsoft.Windows.OperatingSystem"]$</MonitoringClass>
+            <RelationshipClass>$MPElement[Name="MSIGL!Microsoft.SystemCenter.InstanceGroupContainsEntities"]$</RelationshipClass>
+            <Expression>
+              <Contained>
+                <MonitoringClass>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]$</MonitoringClass>
+                <Expression>
+                  <Contained>
+                    <MonitoringClass>$Target/Id$</MonitoringClass>
+                  </Contained>
+                </Expression>
+              </Contained>
+            </Expression>
+          </MembershipRule>
+          <MembershipRule>
+            <MonitoringClass>$MPElement[Name="SC!Microsoft.SystemCenter.HealthService"]$</MonitoringClass>
+            <RelationshipClass>$MPElement[Name="MSIGL!Microsoft.SystemCenter.InstanceGroupContainsEntities"]$</RelationshipClass>
+            <Expression>
+              <Contained>
+                <MonitoringClass>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]$</MonitoringClass>
+                <Expression>
+                  <Contained>
+                    <MonitoringClass>$Target/Id$</MonitoringClass>
+                  </Contained>
+                </Expression>
+              </Contained>
+            </Expression>
+          </MembershipRule>
+        </MembershipRules>
+      </DataSource>
+    </Discovery>
+  </Discoveries>
+  </Monitoring>
+</ManagementPackFragment>

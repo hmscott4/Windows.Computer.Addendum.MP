@@ -35,12 +35,24 @@
       <MinVersion>7.1.10226.0</MinVersion>
       <PackageToBundle>False</PackageToBundle>
     </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.SystemCenter.InstanceGroup.Library">
+      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2016\Microsoft.SystemCenter.InstanceGroup.Library.mp</HintPath>
+      <Alias>MSIGL</Alias>
+      <MinVersion>7.5.8501.0</MinVersion>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
     <ManagementPackReference Include="Microsoft.SystemCenter.Library">
       <Alias>SC</Alias>
       <PackageToBundle>False</PackageToBundle>
     </ManagementPackReference>
     <ManagementPackReference Include="Microsoft.Windows.Library">
       <Alias>Windows</Alias>
+      <PackageToBundle>False</PackageToBundle>
+    </ManagementPackReference>
+    <ManagementPackReference Include="Microsoft.Windows.Server.Library">
+      <HintPath>C:\Program Files (x86)\System Center Visual Studio Authoring Extensions\References\OM2016\Microsoft.Windows.Server.Library.mp</HintPath>
+      <Alias>MWSL</Alias>
+      <MinVersion>10.1.0.6</MinVersion>
       <PackageToBundle>False</PackageToBundle>
     </ManagementPackReference>
     <ManagementPackReference Include="System.Health.Library">
@@ -63,6 +75,9 @@
     </ManagementPackReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Windows.Computer.Addendum.Classes.mpx">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Discoveries\GMT.Offset.Discovery.mpx">
       <SubType>Code</SubType>
     </Compile>
@@ -72,10 +87,28 @@
     <Compile Include="Discoveries\VMWare.Discovery.mpx">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Discoveries\Windows.Computer.Addendum.Discoveries.mpx">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LanguagePacks\LanguagePacks_ENU.mpx">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LanguagePacks_.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Monitors\Service.BESClient.mpx">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Monitors\VMWare.Monitoring.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Rules\VMWare.Rules.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Rules\Windows.LogicalDisk.SpaceUsed.mpx">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tasks\Windows.Computer.Addendum.Tasks.mpx">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -83,6 +116,8 @@
     <Folder Include="Discoveries" />
     <Folder Include="LanguagePacks" />
     <Folder Include="Monitors" />
+    <Folder Include="Classes" />
+    <Folder Include="Tasks" />
     <Folder Include="Rules" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VSAC\Microsoft.SystemCenter.OperationsManager.targets" />

@@ -1,0 +1,124 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><TypeDefinitions>
+    <ModuleTypes>
+      <WriteActionModuleType ID="Microsoft.Windows.Computer.Addendum.AddEnvironmentRegistryEntries.Task.WA" Accessibility="Internal" Batching="false">
+        <Configuration>
+          <xsd:element minOccurs="1" name="Division" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="Service" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="Environment" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="Contact" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="MGName" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="TimeoutSeconds" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
+        <OverrideableParameters>
+          <OverrideableParameter ID="Division" Selector="$Config/Division$" ParameterType="string" />
+          <OverrideableParameter ID="Service" Selector="$Config/Service$" ParameterType="string" />
+          <OverrideableParameter ID="Environment" Selector="$Config/Environment$" ParameterType="string" />
+          <OverrideableParameter ID="Contact" Selector="$Config/Contact$" ParameterType="string" />
+          <OverrideableParameter ID="TimeoutSeconds" Selector="$Config/TimeoutSeconds$" ParameterType="int" />
+        </OverrideableParameters>
+        <ModuleImplementation Isolation="Any">
+          <Composite>
+            <MemberModules>
+              <WriteAction ID="PSWA" TypeID="Windows!Microsoft.Windows.PowerShellWriteAction">
+                <ScriptName>Microsoft.Windows.Computer.Addendum.AddEnvironmentRegistryEntries.Task.WA.ps1</ScriptName>
+                <ScriptBody>
+                    #=================================================================================
+                    #  Script to execute a task in PowerShell
+                    #=================================================================================
+                    param($Division, $Service, $Environment, $Contact, $MGName)
+                    #=================================================================================
+                    # Constants section - modify stuff here:
+
+                    # Assign script name variable for use in event logging
+                    $ScriptName = "Microsoft.Windows.Computer.Addendum.AddEnvironmentRegistryEntries.Task.WA.ps1"
+                    #=================================================================================
+
+                    # Gather script start time
+                    $StartTime = Get-Date
+
+                    # Gather who the script is running as
+                    $whoami = whoami
+
+                    #Load the MOMScript API and discovery propertybag
+                    $momapi = New-Object -comObject "Mom.ScriptAPI"
+
+                    #Log script event that we are starting task
+                    $momapi.LogScriptEvent($ScriptName,6667,0, "Starting script task.  Running as ($whoami)")
+
+                    # Begin Main Script
+                    #=================================================================================
+                    Write-Host "PowerShell script executed"
+                    Write-Host "Param1: " $Param1
+                    Write-Host "Param2: " $Param2
+                    $RegPath = "HKLM:\SOFTWARE\Microsoft\Microsoft Operations Manager\MP\$MGName"
+
+                    New-ItemProperty -Path $RegPath -Name 'Division' -Value $Division -PropertyType 'String' -Force
+                    New-ItemProperty -Path $RegPath -Name 'Service' -Value $Service -PropertyType 'String' -Force
+                    New-ItemProperty -Path $RegPath -Name 'Environment' -Value $Environment -PropertyType 'String' -Force
+                    New-ItemProperty -Path $RegPath -Name 'Contact' -Value $Contact -PropertyType 'String' -Force
+                    #=================================================================================
+
+                    # Log an event for script ending and total execution time.
+                    $EndTime = Get-Date
+                    $ScriptTime = ($EndTime - $StartTime).TotalSeconds
+                    $momapi.LogScriptEvent($ScriptName,6667,0,"`n Script has completed. `n Runtime was ($ScriptTime) seconds.")
+                  </ScriptBody>
+                <Parameters>
+                  <Parameter>
+                    <Name>Division</Name>
+                    <Value>$Config/Division$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>Service</Name>
+                    <Value>$Config/Service$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>Environment</Name>
+                    <Value>$Config/Environment$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>Contact</Name>
+                    <Value>$Config/Contact$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>MGName</Name>
+                    <Value>$Config/MGName$</Value>
+                  </Parameter>
+                </Parameters>
+                <TimeoutSeconds>$Config/TimeoutSeconds$</TimeoutSeconds>
+              </WriteAction>
+            </MemberModules>
+            <Composition>
+              <Node ID="PSWA" />
+            </Composition>
+          </Composite>
+        </ModuleImplementation>
+        <OutputType>System!System.BaseData</OutputType>
+        <InputType>System!System.BaseData</InputType>
+      </WriteActionModuleType>
+    </ModuleTypes>
+  </TypeDefinitions><Monitoring>
+    <Tasks>
+      <Task ID="Microsoft.Windows.Computer.Addendum.AddEnvironmentRegistryEntries.Task" Accessibility="Public" Enabled="true" Target="Windows!Microsoft.Windows.Computer" Timeout="120" Remotable="true">
+        <Category>Custom</Category>
+        <WriteAction ID="PSWA" TypeID="Microsoft.Windows.Computer.Addendum.AddEnvironmentRegistryEntries.Task.WA">
+          <Division>ENTER_CUSTOM_VALUE</Division>
+          <Service>ENTER_CUSTOM_VALUE</Service>
+          <Environment>ENTER_CUSTOM_VALUE</Environment>
+          <Contact>ENTER_CUSTOM_VALUE</Contact>
+          <MGName>$Target/ManagementGroup/Name$</MGName>
+          <TimeoutSeconds>60</TimeoutSeconds>
+        </WriteAction>
+      </Task>
+    </Tasks>
+  </Monitoring><LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Microsoft.Windows.Computer.Addendum.AddEnvironmentRegistryEntries.Task">
+          <Name>Add Environment Registry Entries Task</Name>
+          <Description>Task to add Registry Entries for Division, Service, Environment and Contact.</Description>
+        </DisplayString>
+      </DisplayStrings>
+      <KnowledgeArticles></KnowledgeArticles>
+    </LanguagePack>
+  </LanguagePacks></ManagementPackFragment>
