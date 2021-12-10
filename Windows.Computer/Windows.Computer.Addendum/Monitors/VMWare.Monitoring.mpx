@@ -1,0 +1,452 @@
+﻿<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Monitoring>
+    <Rules>
+      <Rule ID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.CPUStolenTime" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>CPU stolen time</CounterName>
+            <ObjectName>VM Processor</ObjectName>
+            <InstanceName>_Total</InstanceName>
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
+        </DataSources>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="MSDL!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.EffectiveVMSpeedinMHz" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Effective VM Speed in MHz</CounterName>
+            <ObjectName>VM Processor</ObjectName>
+            <InstanceName>_Total</InstanceName>
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
+        </DataSources>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="MSDL!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.HostProcessorspeedinMHz" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Host processor speed in MHz</CounterName>
+            <ObjectName>VM Processor</ObjectName>
+            <InstanceName>_Total</InstanceName>
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
+        </DataSources>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="MSDL!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.LimitinMhz" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Limit in MHz</CounterName>
+            <ObjectName>VM Processor</ObjectName>
+            <InstanceName>_Total</InstanceName>
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
+        </DataSources>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="MSDL!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryActiveMB" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Active in MB</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
+        </DataSources>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="MSDL!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryBalloonedMB" Enabled="true" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Ballooned in MB</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
+        </DataSources>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="MSDL!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryLimitMB" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Limit in MB</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
+        </DataSources>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="MSDL!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryMappedMB" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Mapped in MB</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
+        </DataSources>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="MSDL!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryOverheadMB" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Overhead in MB</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
+        </DataSources>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="MSDL!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryReservationMB" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Reservation in MB</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
+        </DataSources>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="MSDL!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemorySharedMB" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Shared in MB</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
+        </DataSources>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="MSDL!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemorySharedSavedMB" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Shared Saved in MB</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
+        </DataSources>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="MSDL!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryShares" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Shares</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
+        </DataSources>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="MSDL!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemorySwappedMB" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Swapped in MB</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
+        </DataSources>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="MSDL!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryUsedMB" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Used in MB</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
+        </DataSources>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="MSDL!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.PercentProcessorTime" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>% Processor Time</CounterName>
+            <ObjectName>VM Processor</ObjectName>
+            <InstanceName>_Total</InstanceName>
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
+        </DataSources>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="MSDL!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.ReservationinMHz" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Resrevation in MHz</CounterName>
+            <ObjectName>VM Processor</ObjectName>
+            <InstanceName>_Total</InstanceName>
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
+        </DataSources>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="MSDL!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.Shares" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Shares</CounterName>
+            <ObjectName>VM Processor</ObjectName>
+            <InstanceName>_Total</InstanceName>
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
+        </DataSources>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="MSDL!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+      <Rule ID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.TargetSize" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
+        <Category>PerformanceCollection</Category>
+        <DataSources>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Target Size</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
+        </DataSources>
+        <WriteActions>
+          <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <WriteAction ID="WriteToDW" TypeID="MSDL!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+        </WriteActions>
+      </Rule>
+    </Rules>
+    <Monitors>
+      <UnitMonitor ID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryBalloonedMB.Monitor" Accessibility="Public" Enabled="true" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ParentMonitorID="Health!System.Health.PerformanceState" Remotable="true" Priority="Normal" TypeID="Perf!System.Performance.ConsecutiveSamplesThreshold" ConfirmDelivery="false">
+        <Category>PerformanceHealth</Category>
+        <AlertSettings AlertMessage="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryBalloonedMB.Monitor_AlertMessageResourceID">
+          <AlertOnState>Error</AlertOnState>
+          <AutoResolve>true</AutoResolve>
+          <AlertPriority>Normal</AlertPriority>
+          <AlertSeverity>Error</AlertSeverity>
+          <AlertParameters>
+            <AlertParameter1>$Data/Context/InstanceName$</AlertParameter1>
+            <AlertParameter2>$Data/Context/ObjectName$</AlertParameter2>
+            <AlertParameter3>$Data/Context/CounterName$</AlertParameter3>
+            <AlertParameter4>$Data/Context/Value$</AlertParameter4>
+            <AlertParameter5>$Data/Context/TimeSampled$</AlertParameter5>
+          </AlertParameters>
+        </AlertSettings>
+        <OperationalStates>
+          <OperationalState ID="UIGeneratedOpStateId7767e916872f4e7a8b75d54a8c7c4fd1" MonitorTypeStateID="ConditionFalse" HealthState="Success" />
+          <OperationalState ID="UIGeneratedOpStateId5d6cbccddff14165a5ad5d91bdc5b40c" MonitorTypeStateID="ConditionTrue" HealthState="Error" />
+        </OperationalStates>
+        <Configuration>
+          <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+          <CounterName>Memory Ballooned in MB</CounterName>
+          <ObjectName>VM Memory</ObjectName>
+          <InstanceName />
+          <AllInstances>false</AllInstances>
+          <Frequency>300</Frequency>
+          <Threshold>0</Threshold>
+          <Direction>greater</Direction>
+          <NumSamples>2</NumSamples>
+        </Configuration>
+      </UnitMonitor>
+      <UnitMonitor ID="VMWare.VirtualMachine.Monitoring.VMWareToolsService" Accessibility="Public" Enabled="true" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ParentMonitorID="Health!System.Health.AvailabilityState" Remotable="true" Priority="Normal" TypeID="Windows!Microsoft.Windows.CheckNTServiceStateMonitorType" ConfirmDelivery="false">
+        <Category>AvailabilityHealth</Category>
+        <AlertSettings AlertMessage="VMWare.VirtualMachine.Monitoring.VMWareToolsService_AlertMessageResourceID">
+          <AlertOnState>Warning</AlertOnState>
+          <AutoResolve>true</AutoResolve>
+          <AlertPriority>Normal</AlertPriority>
+          <AlertSeverity>Warning</AlertSeverity>
+        </AlertSettings>
+        <OperationalStates>
+          <OperationalState ID="Running" MonitorTypeStateID="Running" HealthState="Success" />
+          <OperationalState ID="NotRunning" MonitorTypeStateID="NotRunning" HealthState="Warning" />
+        </OperationalStates>
+        <Configuration>
+          <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</ComputerName>
+          <ServiceName>VMTools</ServiceName>
+          <CheckStartupType>true</CheckStartupType>
+        </Configuration>
+      </UnitMonitor>
+    </Monitors>
+    <Recoveries>
+      <Recovery ID="VMWare.VirtualMachine.Monitoring.VMWareToolsService.Recovery" Accessibility="Internal" Enabled="true" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" Monitor="VMWare.VirtualMachine.Monitoring.VMWareToolsService" ResetMonitor="true" ExecuteOnState="Warning" Remotable="true" Timeout="300">
+        <Category>Custom</Category>
+        <WriteAction ID="StartService" TypeID="Windows!Microsoft.Windows.ServiceControlManager.StartService">
+          <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</ComputerName>
+          <ServiceName>VMTools</ServiceName>
+        </WriteAction>
+      </Recovery>
+    </Recoveries>
+  </Monitoring>
+  <Presentation>
+    <StringResources>
+      <StringResource ID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryBalloonedMB.Monitor_AlertMessageResourceID" />
+      <StringResource ID="VMWare.VirtualMachine.Monitoring.VMWareToolsService_AlertMessageResourceID" />
+    </StringResources>
+  </Presentation>  
+</ManagementPackFragment>

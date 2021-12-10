@@ -1,0 +1,360 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><LanguagePacks>
+    <LanguagePack ID="ENU" IsDefault="true">
+      <DisplayStrings>
+        <DisplayString ElementID="Windows.Computer.Addendum">
+          <Name>Windows Computer Addendum</Name>
+          <Description>Discovers Virtual Machine attribute for non-Hyper V hosts as well as GMT offset attribute for Windows Computer objects</Description>
+        </DisplayString>
+        <DisplayString ElementID="Windows.Computer.Addendum.GMT.Offset.Discovery">
+          <Name>GMT Offset Discovery</Name>
+          <Description>Discovers GMT Offset (in minutes) for Windows computer objects.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Windows.Computer.Addendum.VirtualMachine.Discovery.True">
+          <Name>Virtual Machine Discovery (True)</Name>
+          <Description>Discover Virtual Machine Attribute for non-Hyper V hosts.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Windows.Computer.Addendum.VirtualMachine.Discovery.False">
+          <Name>Virtual Machine Discovery (False)</Name>
+          <Description>Populates Virtual Machine attribute as False for non VM computer objects.</Description>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Discovery.VirtualMachine">
+          <Name>Virtual Machine</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Discovery.VMWare.VirtualMachine.Discovery">
+          <Name>VMWare Virtual Machine Discovery</Name>
+          <Description>VMWare Virtual Machine Discovery</Description>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.CPUStolenTime">
+          <Name>CPU Stolen Time</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.EffectiveVMSpeedinMHz">
+          <Name>Effective Speed in MHz</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.HostProcessorspeedinMHz">
+          <Name>Host Processor Speed in MHz</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.LimitinMhz">
+          <Name>Limit in MHz</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryActiveMB">
+          <Name>Collect Memory Active in MB</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryBalloonedMB">
+          <Name>Collect Memory Ballooned in MB</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryBalloonedMB.Monitor">
+          <Name>VMWare Virtual Machine: Ballooned Memory Present</Name>
+          <Description>VMWare Virtual Machine: Ballooned Memory Present</Description>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryBalloonedMB.Monitor" SubElementID="UIGeneratedOpStateId5d6cbccddff14165a5ad5d91bdc5b40c">
+          <Name>Condition True</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryBalloonedMB.Monitor" SubElementID="UIGeneratedOpStateId7767e916872f4e7a8b75d54a8c7c4fd1">
+          <Name>Condition False</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryBalloonedMB.Monitor_AlertMessageResourceID">
+          <Name>VMWare Virtual Machine: Ballooned Memory Present</Name>
+          <Description>
+            Instance {0}
+            Object {1}
+            Counter {2}
+            Has a value {3}
+            At time {4}
+          </Description>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryLimitMB">
+          <Name>Collect Memory Limit in MB</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryMappedMB">
+          <Name>Collect Memory Mapped in MB</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryOverheadMB">
+          <Name>Collect Memory Overhead in MB</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryReservationMB">
+          <Name>Collect Memory Reservation in MB</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemorySharedMB">
+          <Name>Collect Memory Shared in MB</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemorySharedSavedMB">
+          <Name>Collect Memory Shared Saved in MB</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryShares">
+          <Name>Collect Memory Shares</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemorySwappedMB">
+          <Name>Collect Memory Swapped in MB</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryUsedMB">
+          <Name>Collect Memory Used in MB</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.PercentProcessorTime">
+          <Name>Percent Processor Time</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.ReservationinMHz">
+          <Name>Reservation in MHz</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.Shares">
+          <Name>Shares</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.TargetSize">
+          <Name>Collect Memory Target Size</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWareToolsService">
+          <Name>VMWare Tools Service is not running</Name>
+          <Description>VMWare Tools Service is not running</Description>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWareToolsService" SubElementID="NotRunning">
+          <Name>NotRunning</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWareToolsService" SubElementID="Running">
+          <Name>Running</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWareToolsService.Recovery">
+          <Name>Restart VMWare Tools</Name>
+        </DisplayString>
+        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWareToolsService_AlertMessageResourceID">
+          <Name>VMWare Tools Service is not Running</Name>
+          <Description>Please see the alert context for details.</Description>
+        </DisplayString>
+      </DisplayStrings>
+      <KnowledgeArticles>
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This management pack populates the attributes "GMT Offset In Minutes" and "Virtual Machine" for Windows Computer objects.</maml:para>
+              <maml:para>The GMT Offset in minutes discovery is a single discovery that runs once per day.  It will calculate the *current* offset from GMT.</maml:para>
+              <maml:para>The Virtual Machine discovery is a two part discovery based on the value of Manufacturer in Win32_ComputerSystem.  It will allow organizations using non Hyper-V hosts to identify VMs (value will be true).</maml:para>
+            </maml:section>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Acknowledgements</maml:title>
+              <maml:para>The Virtual Machine Discovery is based on work by Kevin Holman and Pete Zerger.</maml:para>
+              <maml:para>The GMT Offset Discovery is based on work by Kevin Holman.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.GMT.Offset.Discovery" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>The GMT Offset in minutes discovery is a single discovery that runs once per day.  It will calculate the *current* offset from GMT from the value of CurrentTimeZone in Win32_ComputerSystem.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VirtualMachine.Discovery.True" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This discovery will set the Virtual Machine attribute to True based on the value of Manufacturer in Win32_ComputerSystem.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VirtualMachine.Discovery.False" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This discovery will set the Virtual Machine attribute to False based on the value of Manufacturer in Win32_ComputerSystem.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryBalloonedMB.Monitor" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This monitor will detect if the VMWare Memory Ballooning is in effect.  See VMWare documentation for more information about Memory Ballooning.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Discovery.VMWare.VirtualMachine.Discovery" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This discovery checks if the Virtual Machine is hosted on a ESX machine.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWareToolsService" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This monitor checks to see that the VMWare Tools Service is running.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.CPUStolenTime" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records the value of CPU Stolen Time for VMWare.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.TargetSize" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records the value of Memory Target size for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.LimitinMhz" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records the Limit in MHz value for the virtual machine processor.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryActiveMB" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records the Active Memory in MB value for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryBalloonedMB" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records the amount of Memory consumed by the Memory Balloon feature in MB value for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.HostProcessorspeedinMHz" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records the host processor speed in MHz for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryLimitMB" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records memory limit in MB for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryMappedMB" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records memory mapped value in MB for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryOverheadMB" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records memory overhead value in MB for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryReservationMB" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records memory reservation value in MB for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.Shares" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records VMWare processor shares value for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.ReservationinMHz" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records VMWare processor reservation value in MHz for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.PercentProcessorTime" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records VMWare processor percent time value for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryUsedMB" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records VMWare Memory Used in MB value for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemorySwappedMB" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records VMWare Memory Swapped in MB value for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryShares" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records VMWare Memory Shares value for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemorySharedSavedMB" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records VMWare Memory Shared Saved in MB value for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemorySharedMB" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records VMWare Memory Shared in MB value for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.EffectiveVMSpeedinMHz" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records VMWare Effective VM Speed in MHz value for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+      </KnowledgeArticles>
+    </LanguagePack>
+  </LanguagePacks></ManagementPackFragment>

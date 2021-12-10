@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <TypeDefinitions>
+    <EntityTypes>
+      <ClassTypes>
+        <ClassType ID="VMWare.VirtualMachine.Discovery.VirtualMachine" Accessibility="Public" Abstract="false" Base="Windows!Microsoft.Windows.LocalApplication" Hosted="true" Singleton="false" Extension="false" />
+      </ClassTypes>
+    </EntityTypes>
+  </TypeDefinitions>  
+  <Monitoring>
+    <Discoveries>
+      <Discovery ID="Windows.Computer.Addendum.VirtualMachine.Discovery.True" Enabled="true" Target="Windows!Microsoft.Windows.Computer" ConfirmDelivery="true" Remotable="false" Priority="Normal">
+        <Category>Custom</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="Windows!Microsoft.Windows.Computer">
+            <Property TypeID="Windows!Microsoft.Windows.Computer" PropertyID="IsVirtualMachine" />
+          </DiscoveryClass>
+        </DiscoveryTypes>
+        <DataSource ID="Windows.Computer.Addendum.VirtualMachine.Discovery.True.DS" TypeID="Windows!Microsoft.Windows.WmiProviderWithClassSnapshotDataMapper">
+          <NameSpace>\\$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$\ROOT\CIMV2</NameSpace>
+          <Query>SELECT Manufacturer FROM Win32_ComputerSystem WHERE Manufacturer = "VMware, Inc." OR Manufacturer = "Microsoft Corporation"</Query>
+          <Frequency>86400</Frequency>
+          <ClassId>$MPElement[Name="Windows!Microsoft.Windows.Computer"]$</ClassId>
+          <InstanceSettings>
+            <Settings>
+              <Setting>
+                <Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Name>
+                <Value>$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/IsVirtualMachine$</Name>
+                <Value>true</Value>
+              </Setting>
+            </Settings>
+          </InstanceSettings>
+        </DataSource>
+      </Discovery>
+      <Discovery ID="Windows.Computer.Addendum.VirtualMachine.Discovery.False" Enabled="true" Target="Windows!Microsoft.Windows.Computer" ConfirmDelivery="true" Remotable="true" Priority="Normal">
+        <Category>Custom</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="Windows!Microsoft.Windows.Computer">
+            <Property TypeID="Windows!Microsoft.Windows.Computer" PropertyID="IsVirtualMachine" />
+          </DiscoveryClass>
+        </DiscoveryTypes>
+        <DataSource ID="Virtual.Machine.Discovery.VirtulMachine.False.DS" TypeID="Windows!Microsoft.Windows.WmiProviderWithClassSnapshotDataMapper">
+          <NameSpace>\\$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$\ROOT\CIMV2</NameSpace>
+          <Query>SELECT Manufacturer FROM Win32_ComputerSystem WHERE Manufacturer &lt;&gt; "VMware, Inc." AND Manufacturer &lt;&gt; "Microsoft Corporation"</Query>
+          <Frequency>86400</Frequency>
+          <ClassId>$MPElement[Name="Windows!Microsoft.Windows.Computer"]$</ClassId>
+          <InstanceSettings>
+            <Settings>
+              <Setting>
+                <Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Name>
+                <Value>$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/IsVirtualMachine$</Name>
+                <Value>false</Value>
+              </Setting>
+            </Settings>
+          </InstanceSettings>
+        </DataSource>
+      </Discovery>
+    </Discoveries>
+  </Monitoring>
+</ManagementPackFragment>

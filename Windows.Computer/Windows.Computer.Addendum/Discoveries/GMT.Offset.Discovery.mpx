@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ManagementPackFragment SchemaVersion="2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <Monitoring>
+    <Discoveries>
+      <Discovery ID="Windows.Computer.Addendum.GMT.Offset.Discovery" Enabled="true" Target="Windows!Microsoft.Windows.Computer" ConfirmDelivery="true" Remotable="false" Priority="Normal">
+        <Category>Custom</Category>
+        <DiscoveryTypes>
+          <DiscoveryClass TypeID="Windows!Microsoft.Windows.Computer">
+            <Property TypeID="Windows!Microsoft.Windows.Computer" PropertyID="OffsetInMinuteFromGreenwichTime" />
+          </DiscoveryClass>
+        </DiscoveryTypes>
+        <DataSource ID="Windows.Computer.Addendum.GMT.Offset.Discovery.DS" TypeID="Windows!Microsoft.Windows.WmiProviderWithClassSnapshotDataMapper">
+          <NameSpace>\\$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$\ROOT\CIMV2</NameSpace>
+          <Query>SELECT CurrentTimeZone FROM Win32_ComputerSystem</Query>
+          <Frequency>86400</Frequency>
+          <ClassId>$MPElement[Name="Windows!Microsoft.Windows.Computer"]$</ClassId>
+          <InstanceSettings>
+            <Settings>
+              <Setting>
+                <Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Name>
+                <Value>$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/OffsetInMinuteFromGreenwichTime$</Name>
+                <Value>$Data/Property[@Name='CurrentTimeZone']$</Value>
+              </Setting>
+            </Settings>
+          </InstanceSettings>
+        </DataSource>
+      </Discovery>
+    </Discoveries>
+    <Overrides />
+  </Monitoring>
+</ManagementPackFragment>
