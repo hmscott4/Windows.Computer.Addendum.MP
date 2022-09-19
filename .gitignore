@@ -16,6 +16,8 @@ local.properties
 .classpath
 .settings/
 .loadpath
+slnx.sqlite
+VSWorkspaceState.json
 
 # External tool builders
 .externalToolBuilders/
