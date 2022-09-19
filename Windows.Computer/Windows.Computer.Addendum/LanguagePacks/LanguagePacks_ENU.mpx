@@ -4,7 +4,16 @@
       <DisplayStrings>
         <DisplayString ElementID="Windows.Computer.Addendum">
           <Name>Windows Computer Addendum</Name>
-          <Description>Discovers Virtual Machine attribute for non-Hyper V hosts as well as GMT offset attribute for Windows Computer objects</Description>
+          <Description>Author: Hugh Scott
+          
+          This management pack contains a variety of monitors, rules, tasks and discoveries that facilitate managing Windows Servers in enterprise environment.
+          
+          GMT Offset Discovery: Discovers the value of GMT offset and populates the attribute.
+          Non-Microsoft Virtual Machine Discovery: Discovers if VMs are hosted on VMWare as well as Hyper-V.
+          VMWare Performance Counters: Collects performance counters related to guest OS on VMWare hypervisors.
+          Windows Logical Disk Space Used: Collects the value of Disk Space Used for Windows Logical Disks.
+          Extended class with custom attributes: Discovers registry entries for Service, Division, Environment and Contact
+          Task to set custom attributes: Sets values for the custom attributes to be discovered.</Description>
         </DisplayString>
         <DisplayString ElementID="Windows.Computer.Addendum.GMT.Offset.Discovery">
           <Name>GMT Offset Discovery</Name>
@@ -25,35 +34,35 @@
           <Name>VMWare Virtual Machine Discovery</Name>
           <Description>VMWare Virtual Machine Discovery</Description>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.CPUStolenTime">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.CPUStolenTime">
           <Name>CPU Stolen Time</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.EffectiveVMSpeedinMHz">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.EffectiveVMSpeedinMHz">
           <Name>Effective Speed in MHz</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.HostProcessorspeedinMHz">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.HostProcessorspeedinMHz">
           <Name>Host Processor Speed in MHz</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.LimitinMhz">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.LimitinMhz">
           <Name>Limit in MHz</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryActiveMB">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryActiveMB">
           <Name>Collect Memory Active in MB</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryBalloonedMB">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryBalloonedMB">
           <Name>Collect Memory Ballooned in MB</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryBalloonedMB.Monitor">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryBalloonedMB.Monitor">
           <Name>VMWare Virtual Machine: Ballooned Memory Present</Name>
           <Description>VMWare Virtual Machine: Ballooned Memory Present</Description>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryBalloonedMB.Monitor" SubElementID="UIGeneratedOpStateId5d6cbccddff14165a5ad5d91bdc5b40c">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryBalloonedMB.Monitor" SubElementID="UIGeneratedOpStateId5d6cbccddff14165a5ad5d91bdc5b40c">
           <Name>Condition True</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryBalloonedMB.Monitor" SubElementID="UIGeneratedOpStateId7767e916872f4e7a8b75d54a8c7c4fd1">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryBalloonedMB.Monitor" SubElementID="UIGeneratedOpStateId7767e916872f4e7a8b75d54a8c7c4fd1">
           <Name>Condition False</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryBalloonedMB.Monitor_AlertMessageResourceID">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryBalloonedMB.Monitor_AlertMessageResourceID">
           <Name>VMWare Virtual Machine: Ballooned Memory Present</Name>
           <Description>
             Instance {0}
@@ -63,61 +72,133 @@
             At time {4}
           </Description>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryLimitMB">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryLimitMB">
           <Name>Collect Memory Limit in MB</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryMappedMB">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryMappedMB">
           <Name>Collect Memory Mapped in MB</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryOverheadMB">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryOverheadMB">
           <Name>Collect Memory Overhead in MB</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryReservationMB">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryReservationMB">
           <Name>Collect Memory Reservation in MB</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemorySharedMB">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemorySharedMB">
           <Name>Collect Memory Shared in MB</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemorySharedSavedMB">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemorySharedSavedMB">
           <Name>Collect Memory Shared Saved in MB</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryShares">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryShares">
           <Name>Collect Memory Shares</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemorySwappedMB">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemorySwappedMB">
           <Name>Collect Memory Swapped in MB</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryUsedMB">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryUsedMB">
           <Name>Collect Memory Used in MB</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.PercentProcessorTime">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.PercentProcessorTime">
           <Name>Percent Processor Time</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.ReservationinMHz">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.ReservationinMHz">
           <Name>Reservation in MHz</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.Shares">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.Shares">
           <Name>Shares</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.TargetSize">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.TargetSize">
           <Name>Collect Memory Target Size</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWareToolsService">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWareToolsService">
           <Name>VMWare Tools Service is not running</Name>
           <Description>VMWare Tools Service is not running</Description>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWareToolsService" SubElementID="NotRunning">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWareToolsService" SubElementID="NotRunning">
           <Name>NotRunning</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWareToolsService" SubElementID="Running">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWareToolsService" SubElementID="Running">
           <Name>Running</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWareToolsService.Recovery">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWareToolsService.Recovery">
           <Name>Restart VMWare Tools</Name>
         </DisplayString>
-        <DisplayString ElementID="VMWare.VirtualMachine.Monitoring.VMWareToolsService_AlertMessageResourceID">
+        <DisplayString ElementID="Windows.Computer.Addendum.VMWareToolsService_AlertMessageResourceID">
           <Name>VMWare Tools Service is not Running</Name>
           <Description>Please see the alert context for details.</Description>
+        </DisplayString>
+          <DisplayString ElementID="Microsoft.Windows.Computer.Addendum.SpacedUsedMB.Script.Perf.Datasource">
+            <Name>Microsoft Windows Computer Addendum SpacedUsedMB Script Perf Datasource</Name>
+            <Description>Microsoft Windows Computer Addendum SpacedUsedMB Script Perf Datasource</Description>
+          </DisplayString>
+          <DisplayString ElementID="Microsoft.Windows.Computer.Addendum.SpacedUsedMB.Script.Perf.Datasource" SubElementID="IntervalSeconds">
+            <Name>Interval Seconds</Name>
+            <Description>Interval Seconds</Description>
+          </DisplayString>
+          <DisplayString ElementID="Microsoft.Windows.Computer.Addendum.SpacedUsedMB.Script.Perf.Datasource" SubElementID="SyncTime">
+            <Name>Sync Time</Name>
+            <Description>Sync Time</Description>
+          </DisplayString>
+          <DisplayString ElementID="Microsoft.Windows.Computer.Addendum.SpacedUsedMB.Script.Perf.Datasource" SubElementID="TimeoutSeconds">
+            <Name>Timeout Seconds</Name>
+            <Description>Timeout Seconds</Description>
+          </DisplayString>
+<DisplayString ElementID="Microsoft.Windows.Computer.Addendum.Extended.Class">
+          <Name>Microsoft Windows Computer Addendum Extended Class</Name>
+          <Description>Microsoft Windows Computer Addendum Extended Class</Description>
+        </DisplayString>
+        <DisplayString ElementID="Microsoft.Windows.Computer.Addendum.Extended.Class" SubElementID="Division">
+          <Name>Division</Name>
+          <Description>Division: The division to which a computer belongs.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Microsoft.Windows.Computer.Addendum.Extended.Class" SubElementID="Service">
+          <Name>Service</Name>
+          <Description>Service: The service which the compouter provides.  Example: DNS, SQL, File share, IIS</Description>
+        </DisplayString>
+        <DisplayString ElementID="Microsoft.Windows.Computer.Addendum.Extended.Class" SubElementID="Environment">
+          <Name>Environment</Name>
+          <Description>The Environment to which the Windows Computer belongs.  Examples: Production, Test, DR.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Microsoft.Windows.Computer.Addendum.Extended.Class" SubElementID="Contact">
+          <Name>Contact</Name>
+          <Description>Contact Name (or email address) for communications related to the Windows Computer</Description>
+        </DisplayString>
+        <DisplayString ElementID="Microsoft.Windows.Computer.Addendum.Extended.Group">
+          <Name>Microsoft Windows Computer Addendum Extended Group</Name>
+          <Description>Microsoft Windows Computer Addendum Extended Group</Description>
+        </DisplayString>
+        <DisplayString ElementID="Microsoft.Windows.Computer.Addendum.AddEnvironmentRegistryEntries.Task.WA">
+          <Name>Microsoft Windows Computer Addendum AddEnvironmentRegistryEntries Task WA</Name>
+          <Description>Microsoft Windows Computer Addendum AddEnvironmentRegistryEntries Task Write Action</Description>
+        </DisplayString>
+        <DisplayString ElementID="Microsoft.Windows.Computer.Addendum.AddEnvironmentRegistryEntries.Task.WA" SubElementID="Division">
+          <Name>Division</Name>
+          <Description>The Division to which a computer belongs.  Examples: IT, HR, Operations</Description>
+        </DisplayString>
+        <DisplayString ElementID="Microsoft.Windows.Computer.Addendum.AddEnvironmentRegistryEntries.Task.WA" SubElementID="Service">
+          <Name>Service</Name>
+          <Description>The Service provided by the Windows Computer.  Examples: SQL, IIS, DNS, File server</Description>
+        </DisplayString>
+        <DisplayString ElementID="Microsoft.Windows.Computer.Addendum.AddEnvironmentRegistryEntries.Task.WA" SubElementID="Environment">
+          <Name>Environment</Name>
+          <Description>The Environment to which a computer belongs.  Examples: Production, Test, DR</Description>
+        </DisplayString>
+        <DisplayString ElementID="Microsoft.Windows.Computer.Addendum.AddEnvironmentRegistryEntries.Task.WA" SubElementID="Contact">
+          <Name>Contact</Name>
+          <Description>The contact name (or email address) for communications related to the Windows Computer.</Description>
+        </DisplayString>
+        <DisplayString ElementID="Microsoft.Windows.Computer.Addendum.AddEnvironmentRegistryEntries.Task.WA" SubElementID="TimeoutSeconds">
+          <Name>Timeout Seconds</Name>
+          <Description>Timeout Seconds</Description>
+        </DisplayString>
+        <DisplayString ElementID="Microsoft.Windows.Computer.Addendum.Extended.Class.Discovery">
+          <Name>Microsoft.Windows.Computer.Addendum.Extended.Class.Discovery</Name>
+          <Description>Microsoft Windows Computer Addendum Extended Class Discovery</Description>
+        </DisplayString>
+        <DisplayString ElementID="Microsoft.Windows.Computer.Addendum.Extended.Group.DiscoveryRule">
+          <Name>Microsoft Windows Computer Addendum Extended Group DiscoveryRule</Name>
+          <Description>Microsoft Windows Computer Addendum Extended Group DiscoveryRule</Description>
         </DisplayString>
       </DisplayStrings>
       <KnowledgeArticles>
@@ -160,7 +241,7 @@
             </maml:section>
           </MamlContent>
         </KnowledgeArticle>
-        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryBalloonedMB.Monitor" Visible="true">
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryBalloonedMB.Monitor" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
@@ -176,7 +257,7 @@
             </maml:section>
           </MamlContent>
         </KnowledgeArticle>
-        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWareToolsService" Visible="true">
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWareToolsService" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
@@ -184,7 +265,7 @@
             </maml:section>
           </MamlContent>
         </KnowledgeArticle>
-        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.CPUStolenTime" Visible="true">
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.CPUStolenTime" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
@@ -193,7 +274,7 @@
             </maml:section>
           </MamlContent>
         </KnowledgeArticle>
-        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.TargetSize" Visible="true">
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.TargetSize" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
@@ -202,7 +283,7 @@
             </maml:section>
           </MamlContent>
         </KnowledgeArticle>
-        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.LimitinMhz" Visible="true">
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.LimitinMhz" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
@@ -211,7 +292,7 @@
             </maml:section>
           </MamlContent>
         </KnowledgeArticle>
-        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryActiveMB" Visible="true">
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryActiveMB" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
@@ -220,7 +301,7 @@
             </maml:section>
           </MamlContent>
         </KnowledgeArticle>
-        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryBalloonedMB" Visible="true">
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryBalloonedMB" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
@@ -229,7 +310,7 @@
             </maml:section>
           </MamlContent>
         </KnowledgeArticle>
-        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.HostProcessorspeedinMHz" Visible="true">
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.HostProcessorspeedinMHz" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
@@ -238,7 +319,7 @@
             </maml:section>
           </MamlContent>
         </KnowledgeArticle>
-        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryLimitMB" Visible="true">
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryLimitMB" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
@@ -247,7 +328,7 @@
             </maml:section>
           </MamlContent>
         </KnowledgeArticle>
-        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryMappedMB" Visible="true">
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryMappedMB" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
@@ -256,7 +337,7 @@
             </maml:section>
           </MamlContent>
         </KnowledgeArticle>
-        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryOverheadMB" Visible="true">
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryOverheadMB" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
@@ -265,7 +346,7 @@
             </maml:section>
           </MamlContent>
         </KnowledgeArticle>
-        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryReservationMB" Visible="true">
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryReservationMB" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
@@ -274,7 +355,7 @@
             </maml:section>
           </MamlContent>
         </KnowledgeArticle>
-        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.Shares" Visible="true">
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.Shares" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
@@ -283,7 +364,7 @@
             </maml:section>
           </MamlContent>
         </KnowledgeArticle>
-        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.ReservationinMHz" Visible="true">
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.ReservationinMHz" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
@@ -292,7 +373,7 @@
             </maml:section>
           </MamlContent>
         </KnowledgeArticle>
-        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.PercentProcessorTime" Visible="true">
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.PercentProcessorTime" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
@@ -301,7 +382,7 @@
             </maml:section>
           </MamlContent>
         </KnowledgeArticle>
-        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryUsedMB" Visible="true">
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryUsedMB" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
@@ -310,7 +391,7 @@
             </maml:section>
           </MamlContent>
         </KnowledgeArticle>
-        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemorySwappedMB" Visible="true">
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemorySwappedMB" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
@@ -319,7 +400,7 @@
             </maml:section>
           </MamlContent>
         </KnowledgeArticle>
-        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemoryShares" Visible="true">
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryShares" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
@@ -328,7 +409,7 @@
             </maml:section>
           </MamlContent>
         </KnowledgeArticle>
-        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemorySharedSavedMB" Visible="true">
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemorySharedSavedMB" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
@@ -337,7 +418,7 @@
             </maml:section>
           </MamlContent>
         </KnowledgeArticle>
-        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.MemorySharedMB" Visible="true">
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemorySharedMB" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
@@ -346,11 +427,21 @@
             </maml:section>
           </MamlContent>
         </KnowledgeArticle>
-        <KnowledgeArticle ElementID="VMWare.VirtualMachine.Monitoring.VMWare.VirtualMachine.EffectiveVMSpeedinMHz" Visible="true">
+        <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.EffectiveVMSpeedinMHz" Visible="true">
           <MamlContent>
             <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
               <maml:title>Summary</maml:title>
               <maml:para>This rule records VMWare Effective VM Speed in MHz value for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
+        </KnowledgeArticle>
+
+        <KnowledgeArticle ElementID="Microsoft.Windows.Computer.Addendum.SpacedUsedMB.Script.Perf.Rule" Visible="true">
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records logical disk spaced used in MB.</maml:para>
               <maml:para>This rule is disabled by default.</maml:para>
             </maml:section>
           </MamlContent>
