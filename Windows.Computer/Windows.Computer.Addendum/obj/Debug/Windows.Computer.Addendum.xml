@@ -3,7 +3,7 @@
   <Manifest>
     <Identity>
       <ID>Windows.Computer.Addendum</ID>
-      <Version>1.0.1.19</Version>
+      <Version>1.0.1.20</Version>
     </Identity>
     <Name>Windows Computer Addendum</Name>
     <References>

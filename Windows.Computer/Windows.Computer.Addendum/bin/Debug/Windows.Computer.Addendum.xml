@@ -1,8 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?><ManagementPack xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" ContentReadable="true" SchemaVersion="2.0" OriginalSchemaVersion="2.0">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ManagementPack SchemaVersion="2.0" ContentReadable="true" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Manifest>
     <Identity>
       <ID>Windows.Computer.Addendum</ID>
-      <Version>1.0.1.19</Version>
+      <Version>1.0.1.20</Version>
     </Identity>
     <Name>Windows Computer Addendum</Name>
     <References>
@@ -63,7 +64,11 @@
     </EntityTypes>
     <ModuleTypes>
       <DataSourceModuleType ID="Microsoft.Windows.Computer.Addendum.SpacedUsedMB.Script.Perf.Datasource" Accessibility="Internal" Batching="false">
-        <Configuration><xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" minOccurs="1" type="xsd:integer" name="IntervalSeconds" /><xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" minOccurs="0" type="xsd:string" name="SyncTime" /><xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" minOccurs="1" type="xsd:integer" name="TimeoutSeconds" /></Configuration>
+        <Configuration>
+          <xsd:element minOccurs="1" type="xsd:integer" name="IntervalSeconds" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="0" type="xsd:string" name="SyncTime" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" type="xsd:integer" name="TimeoutSeconds" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
         <OverrideableParameters>
           <OverrideableParameter ID="IntervalSeconds" Selector="$Config/IntervalSeconds$" ParameterType="int" />
           <OverrideableParameter ID="SyncTime" Selector="$Config/SyncTime$" ParameterType="string" />
@@ -72,8 +77,18 @@
         <ModuleImplementation Isolation="Any">
           <Composite>
             <MemberModules>
-              <DataSource ID="Scheduler" TypeID="System!System.Scheduler"><Scheduler><SimpleReccuringSchedule><Interval Unit="Seconds">$Config/IntervalSeconds$</Interval><SyncTime>$Config/SyncTime$</SyncTime></SimpleReccuringSchedule><ExcludeDates /></Scheduler></DataSource>
-              <ProbeAction ID="PA" TypeID="Windows!Microsoft.Windows.PowerShellPropertyBagTriggerOnlyProbe"><ScriptName>Microsoft.Windows.Computer.Addendum.SpacedUsedMB.Script.Perf.Datasource.ps1</ScriptName><ScriptBody>
+              <DataSource ID="Scheduler" TypeID="System!System.Scheduler">
+                <Scheduler>
+                  <SimpleReccuringSchedule>
+                    <Interval Unit="Seconds">$Config/IntervalSeconds$</Interval>
+                    <SyncTime>$Config/SyncTime$</SyncTime>
+                  </SimpleReccuringSchedule>
+                  <ExcludeDates />
+                </Scheduler>
+              </DataSource>
+              <ProbeAction ID="PA" TypeID="Windows!Microsoft.Windows.PowerShellPropertyBagTriggerOnlyProbe">
+                <ScriptName>Microsoft.Windows.Computer.Addendum.SpacedUsedMB.Script.Perf.Datasource.ps1</ScriptName>
+                <ScriptBody>
                     #=================================================================================
                     #  Collect Logical Disk Space Used in MB
                     #
@@ -136,7 +151,9 @@
                     $momapi.LogScriptEvent($ScriptName,$EventID,0,"`n Script Completed. `n Script Runtime: ($ScriptTime) seconds.")
                     #=================================================================================
                     # End of script
-                  </ScriptBody><TimeoutSeconds>$Config/TimeoutSeconds$</TimeoutSeconds></ProbeAction>
+                  </ScriptBody>
+                <TimeoutSeconds>$Config/TimeoutSeconds$</TimeoutSeconds>
+              </ProbeAction>
             </MemberModules>
             <Composition>
               <Node ID="PA">
@@ -148,7 +165,14 @@
         <OutputType>System!System.PropertyBagData</OutputType>
       </DataSourceModuleType>
       <WriteActionModuleType ID="Microsoft.Windows.Computer.Addendum.AddEnvironmentRegistryEntries.Task.WA" Accessibility="Internal" Batching="false">
-        <Configuration><xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" minOccurs="1" name="Division" type="xsd:string" /><xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" minOccurs="1" name="Service" type="xsd:string" /><xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" minOccurs="1" name="Environment" type="xsd:string" /><xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" minOccurs="1" name="Contact" type="xsd:string" /><xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" minOccurs="1" name="MGName" type="xsd:string" /><xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" minOccurs="1" name="TimeoutSeconds" type="xsd:integer" /></Configuration>
+        <Configuration>
+          <xsd:element minOccurs="1" name="Division" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="Service" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="Environment" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="Contact" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="MGName" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element minOccurs="1" name="TimeoutSeconds" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
         <OverrideableParameters>
           <OverrideableParameter ID="Division" Selector="$Config/Division$" ParameterType="string" />
           <OverrideableParameter ID="Service" Selector="$Config/Service$" ParameterType="string" />
@@ -159,7 +183,9 @@
         <ModuleImplementation Isolation="Any">
           <Composite>
             <MemberModules>
-              <WriteAction ID="PSWA" TypeID="Windows!Microsoft.Windows.PowerShellWriteAction"><ScriptName>Microsoft.Windows.Computer.Addendum.AddEnvironmentRegistryEntries.Task.WA.ps1</ScriptName><ScriptBody>
+              <WriteAction ID="PSWA" TypeID="Windows!Microsoft.Windows.PowerShellWriteAction">
+                <ScriptName>Microsoft.Windows.Computer.Addendum.AddEnvironmentRegistryEntries.Task.WA.ps1</ScriptName>
+                <ScriptBody>
                     #=================================================================================
                     #  Script to execute a task in PowerShell
                     #=================================================================================
@@ -200,7 +226,31 @@
                     $EndTime = Get-Date
                     $ScriptTime = ($EndTime - $StartTime).TotalSeconds
                     $momapi.LogScriptEvent($ScriptName,6667,0,"`n Script has completed. `n Runtime was ($ScriptTime) seconds.")
-                  </ScriptBody><Parameters><Parameter><Name>Division</Name><Value>$Config/Division$</Value></Parameter><Parameter><Name>Service</Name><Value>$Config/Service$</Value></Parameter><Parameter><Name>Environment</Name><Value>$Config/Environment$</Value></Parameter><Parameter><Name>Contact</Name><Value>$Config/Contact$</Value></Parameter><Parameter><Name>MGName</Name><Value>$Config/MGName$</Value></Parameter></Parameters><TimeoutSeconds>$Config/TimeoutSeconds$</TimeoutSeconds></WriteAction>
+                  </ScriptBody>
+                <Parameters>
+                  <Parameter>
+                    <Name>Division</Name>
+                    <Value>$Config/Division$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>Service</Name>
+                    <Value>$Config/Service$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>Environment</Name>
+                    <Value>$Config/Environment$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>Contact</Name>
+                    <Value>$Config/Contact$</Value>
+                  </Parameter>
+                  <Parameter>
+                    <Name>MGName</Name>
+                    <Value>$Config/MGName$</Value>
+                  </Parameter>
+                </Parameters>
+                <TimeoutSeconds>$Config/TimeoutSeconds$</TimeoutSeconds>
+              </WriteAction>
             </MemberModules>
             <Composition>
               <Node ID="PSWA" />
@@ -217,7 +267,13 @@
           <MonitorTypeState ID="Running" NoDetection="false" />
           <MonitorTypeState ID="NotRunning" NoDetection="false" />
         </MonitorTypeStates>
-        <Configuration><xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ComputerName" type="xsd:string" /><xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ServiceName" type="xsd:string" /><xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="IntervalSeconds" type="xsd:integer" /><xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CheckStartupType" minOccurs="0" maxOccurs="1" type="xsd:string" /><xsd:element xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Samples" type="xsd:integer" /></Configuration>
+        <Configuration>
+          <xsd:element name="ComputerName" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="ServiceName" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="IntervalSeconds" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="CheckStartupType" minOccurs="0" maxOccurs="1" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+          <xsd:element name="Samples" type="xsd:integer" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+        </Configuration>
         <OverrideableParameters>
           <OverrideableParameter ID="IntervalSeconds" Selector="$Config/IntervalSeconds$" ParameterType="int" />
           <OverrideableParameter ID="CheckStartupType" Selector="$Config/CheckStartupType$" ParameterType="string" />
@@ -225,10 +281,80 @@
         </OverrideableParameters>
         <MonitorImplementation>
           <MemberModules>
-            <DataSource ID="DS" TypeID="Windows!Microsoft.Windows.Win32ServiceInformationProvider"><ComputerName>$Config/ComputerName$</ComputerName><ServiceName>$Config/ServiceName$</ServiceName><Frequency>$Config/IntervalSeconds$</Frequency><DisableCaching>true</DisableCaching><CheckStartupType>$Config/CheckStartupType$</CheckStartupType></DataSource>
-            <ProbeAction ID="Probe" TypeID="Windows!Microsoft.Windows.Win32ServiceInformationProbe"><ComputerName>$Config/ComputerName$</ComputerName><ServiceName>$Config/ServiceName$</ServiceName></ProbeAction>
-            <ConditionDetection ID="ServiceRunning" TypeID="System!System.ExpressionFilter"><Expression><Or><Expression><SimpleExpression><ValueExpression><XPathQuery Type="Integer">Property[@Name='StartMode']</XPathQuery></ValueExpression><Operator>Equal</Operator><ValueExpression><Value Type="Integer">4</Value><!-- 0=BootStart 1=SystemStart 2=Automatic 3=Manual 4=Disabled --></ValueExpression></SimpleExpression></Expression><Expression><SimpleExpression><ValueExpression><XPathQuery Type="Integer">Property[@Name='State']</XPathQuery></ValueExpression><Operator>Equal</Operator><ValueExpression><Value Type="Integer">4</Value><!-- 0=Unknown 1=Stopped 2=StartPending 3=StopPending 4=Running 5=ContinuePending 6=PausePending 7=Paused 8=ServiceNotFound 9=ServerNotFound --></ValueExpression></SimpleExpression></Expression></Or></Expression></ConditionDetection>
-            <ConditionDetection ID="ServiceNotRunning" TypeID="System!System.ExpressionFilter"><Expression><And><Expression><SimpleExpression><ValueExpression><XPathQuery Type="Integer">Property[@Name='StartMode']</XPathQuery></ValueExpression><Operator>NotEqual</Operator><ValueExpression><Value Type="Integer">4</Value><!-- 0=BootStart 1=SystemStart 2=Automatic 3=Manual 4=Disabled --></ValueExpression></SimpleExpression></Expression><Expression><SimpleExpression><ValueExpression><XPathQuery Type="Integer">Property[@Name='State']</XPathQuery></ValueExpression><Operator>NotEqual</Operator><ValueExpression><Value Type="Integer">4</Value><!-- 0=Unknown 1=Stopped 2=StartPending 3=StopPending 4=Running 5=ContinuePending 6=PausePending 7=Paused 8=ServiceNotFound 9=ServerNotFound --></ValueExpression></SimpleExpression></Expression></And></Expression><SuppressionSettings><MatchCount>$Config/Samples$</MatchCount></SuppressionSettings></ConditionDetection>
+            <DataSource ID="DS" TypeID="Windows!Microsoft.Windows.Win32ServiceInformationProvider">
+              <ComputerName>$Config/ComputerName$</ComputerName>
+              <ServiceName>$Config/ServiceName$</ServiceName>
+              <Frequency>$Config/IntervalSeconds$</Frequency>
+              <DisableCaching>true</DisableCaching>
+              <CheckStartupType>$Config/CheckStartupType$</CheckStartupType>
+            </DataSource>
+            <ProbeAction ID="Probe" TypeID="Windows!Microsoft.Windows.Win32ServiceInformationProbe">
+              <ComputerName>$Config/ComputerName$</ComputerName>
+              <ServiceName>$Config/ServiceName$</ServiceName>
+            </ProbeAction>
+            <ConditionDetection ID="ServiceRunning" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <Or>
+                  <Expression>
+                    <SimpleExpression>
+                      <ValueExpression>
+                        <XPathQuery Type="Integer">Property[@Name='StartMode']</XPathQuery>
+                      </ValueExpression>
+                      <Operator>Equal</Operator>
+                      <ValueExpression>
+                        <Value Type="Integer">4</Value>
+                        <!-- 0=BootStart 1=SystemStart 2=Automatic 3=Manual 4=Disabled -->
+                      </ValueExpression>
+                    </SimpleExpression>
+                  </Expression>
+                  <Expression>
+                    <SimpleExpression>
+                      <ValueExpression>
+                        <XPathQuery Type="Integer">Property[@Name='State']</XPathQuery>
+                      </ValueExpression>
+                      <Operator>Equal</Operator>
+                      <ValueExpression>
+                        <Value Type="Integer">4</Value>
+                        <!-- 0=Unknown 1=Stopped 2=StartPending 3=StopPending 4=Running 5=ContinuePending 6=PausePending 7=Paused 8=ServiceNotFound 9=ServerNotFound -->
+                      </ValueExpression>
+                    </SimpleExpression>
+                  </Expression>
+                </Or>
+              </Expression>
+            </ConditionDetection>
+            <ConditionDetection ID="ServiceNotRunning" TypeID="System!System.ExpressionFilter">
+              <Expression>
+                <And>
+                  <Expression>
+                    <SimpleExpression>
+                      <ValueExpression>
+                        <XPathQuery Type="Integer">Property[@Name='StartMode']</XPathQuery>
+                      </ValueExpression>
+                      <Operator>NotEqual</Operator>
+                      <ValueExpression>
+                        <Value Type="Integer">4</Value>
+                        <!-- 0=BootStart 1=SystemStart 2=Automatic 3=Manual 4=Disabled -->
+                      </ValueExpression>
+                    </SimpleExpression>
+                  </Expression>
+                  <Expression>
+                    <SimpleExpression>
+                      <ValueExpression>
+                        <XPathQuery Type="Integer">Property[@Name='State']</XPathQuery>
+                      </ValueExpression>
+                      <Operator>NotEqual</Operator>
+                      <ValueExpression>
+                        <Value Type="Integer">4</Value>
+                        <!-- 0=Unknown 1=Stopped 2=StartPending 3=StopPending 4=Running 5=ContinuePending 6=PausePending 7=Paused 8=ServiceNotFound 9=ServerNotFound -->
+                      </ValueExpression>
+                    </SimpleExpression>
+                  </Expression>
+                </And>
+              </Expression>
+              <SuppressionSettings>
+                <MatchCount>$Config/Samples$</MatchCount>
+              </SuppressionSettings>
+            </ConditionDetection>
           </MemberModules>
           <RegularDetections>
             <RegularDetection MonitorTypeStateID="Running">
@@ -267,7 +393,24 @@
             <Property TypeID="Windows!Microsoft.Windows.Computer" PropertyID="OffsetInMinuteFromGreenwichTime" />
           </DiscoveryClass>
         </DiscoveryTypes>
-        <DataSource ID="Windows.Computer.Addendum.GMT.Offset.Discovery.DS" TypeID="Windows!Microsoft.Windows.WmiProviderWithClassSnapshotDataMapper"><NameSpace>\\$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$\ROOT\CIMV2</NameSpace><Query>SELECT CurrentTimeZone FROM Win32_ComputerSystem</Query><Frequency>86400</Frequency><ClassId>$MPElement[Name="Windows!Microsoft.Windows.Computer"]$</ClassId><InstanceSettings><Settings><Setting><Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Name><Value>$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Value></Setting><Setting><Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/OffsetInMinuteFromGreenwichTime$</Name><Value>$Data/Property[@Name='CurrentTimeZone']$</Value></Setting></Settings></InstanceSettings></DataSource>
+        <DataSource ID="Windows.Computer.Addendum.GMT.Offset.Discovery.DS" TypeID="Windows!Microsoft.Windows.WmiProviderWithClassSnapshotDataMapper">
+          <NameSpace>\\$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$\ROOT\CIMV2</NameSpace>
+          <Query>SELECT CurrentTimeZone FROM Win32_ComputerSystem</Query>
+          <Frequency>86400</Frequency>
+          <ClassId>$MPElement[Name="Windows!Microsoft.Windows.Computer"]$</ClassId>
+          <InstanceSettings>
+            <Settings>
+              <Setting>
+                <Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Name>
+                <Value>$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/OffsetInMinuteFromGreenwichTime$</Name>
+                <Value>$Data/Property[@Name='CurrentTimeZone']$</Value>
+              </Setting>
+            </Settings>
+          </InstanceSettings>
+        </DataSource>
       </Discovery>
       <Discovery ID="Windows.Computer.Addendum.VirtualMachine.Discovery.True" Enabled="true" Target="Windows!Microsoft.Windows.Computer" ConfirmDelivery="true" Remotable="false" Priority="Normal">
         <Category>Custom</Category>
@@ -276,7 +419,24 @@
             <Property TypeID="Windows!Microsoft.Windows.Computer" PropertyID="IsVirtualMachine" />
           </DiscoveryClass>
         </DiscoveryTypes>
-        <DataSource ID="Windows.Computer.Addendum.VirtualMachine.Discovery.True.DS" TypeID="Windows!Microsoft.Windows.WmiProviderWithClassSnapshotDataMapper"><NameSpace>\\$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$\ROOT\CIMV2</NameSpace><Query>SELECT Manufacturer FROM Win32_ComputerSystem WHERE Manufacturer = "VMware, Inc." OR Manufacturer = "Microsoft Corporation"</Query><Frequency>86400</Frequency><ClassId>$MPElement[Name="Windows!Microsoft.Windows.Computer"]$</ClassId><InstanceSettings><Settings><Setting><Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Name><Value>$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Value></Setting><Setting><Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/IsVirtualMachine$</Name><Value>true</Value></Setting></Settings></InstanceSettings></DataSource>
+        <DataSource ID="Windows.Computer.Addendum.VirtualMachine.Discovery.True.DS" TypeID="Windows!Microsoft.Windows.WmiProviderWithClassSnapshotDataMapper">
+          <NameSpace>\\$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$\ROOT\CIMV2</NameSpace>
+          <Query>SELECT Manufacturer FROM Win32_ComputerSystem WHERE Manufacturer = "VMware, Inc." OR Manufacturer = "Microsoft Corporation"</Query>
+          <Frequency>86400</Frequency>
+          <ClassId>$MPElement[Name="Windows!Microsoft.Windows.Computer"]$</ClassId>
+          <InstanceSettings>
+            <Settings>
+              <Setting>
+                <Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Name>
+                <Value>$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/IsVirtualMachine$</Name>
+                <Value>true</Value>
+              </Setting>
+            </Settings>
+          </InstanceSettings>
+        </DataSource>
       </Discovery>
       <Discovery ID="Windows.Computer.Addendum.VirtualMachine.Discovery.False" Enabled="true" Target="Windows!Microsoft.Windows.Computer" ConfirmDelivery="true" Remotable="true" Priority="Normal">
         <Category>Custom</Category>
@@ -285,14 +445,66 @@
             <Property TypeID="Windows!Microsoft.Windows.Computer" PropertyID="IsVirtualMachine" />
           </DiscoveryClass>
         </DiscoveryTypes>
-        <DataSource ID="Virtual.Machine.Discovery.VirtulMachine.False.DS" TypeID="Windows!Microsoft.Windows.WmiProviderWithClassSnapshotDataMapper"><NameSpace>\\$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$\ROOT\CIMV2</NameSpace><Query>SELECT Manufacturer FROM Win32_ComputerSystem WHERE Manufacturer &lt;&gt; "VMware, Inc." AND Manufacturer &lt;&gt; "Microsoft Corporation"</Query><Frequency>86400</Frequency><ClassId>$MPElement[Name="Windows!Microsoft.Windows.Computer"]$</ClassId><InstanceSettings><Settings><Setting><Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Name><Value>$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Value></Setting><Setting><Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/IsVirtualMachine$</Name><Value>false</Value></Setting></Settings></InstanceSettings></DataSource>
+        <DataSource ID="Virtual.Machine.Discovery.VirtulMachine.False.DS" TypeID="Windows!Microsoft.Windows.WmiProviderWithClassSnapshotDataMapper">
+          <NameSpace>\\$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$\ROOT\CIMV2</NameSpace>
+          <Query>SELECT Manufacturer FROM Win32_ComputerSystem WHERE Manufacturer &lt;&gt; "VMware, Inc." AND Manufacturer &lt;&gt; "Microsoft Corporation"</Query>
+          <Frequency>86400</Frequency>
+          <ClassId>$MPElement[Name="Windows!Microsoft.Windows.Computer"]$</ClassId>
+          <InstanceSettings>
+            <Settings>
+              <Setting>
+                <Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Name>
+                <Value>$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/IsVirtualMachine$</Name>
+                <Value>false</Value>
+              </Setting>
+            </Settings>
+          </InstanceSettings>
+        </DataSource>
       </Discovery>
       <Discovery ID="VMWare.VirtualMachine.Discovery.VMWare.VirtualMachine.Discovery" Enabled="false" Target="Windows!Microsoft.Windows.Computer" ConfirmDelivery="false" Remotable="false" Priority="Normal">
         <Category>Discovery</Category>
         <DiscoveryTypes>
           <DiscoveryClass TypeID="VMWare.VirtualMachine.Discovery.VirtualMachine" />
         </DiscoveryTypes>
-        <DataSource ID="DS" TypeID="Windows!Microsoft.Windows.FilteredRegistryDiscoveryProvider"><ComputerName>$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><RegistryAttributeDefinitions><RegistryAttributeDefinition><AttributeName>VMWareToolsExists</AttributeName><Path>SOFTWARE\VMWare, Inc.\VMWare Tools</Path><PathType>0</PathType><AttributeType>0</AttributeType></RegistryAttributeDefinition></RegistryAttributeDefinitions><Frequency>86400</Frequency><ClassId>$MPElement[Name="VMWare.VirtualMachine.Discovery.VirtualMachine"]$</ClassId><InstanceSettings><Settings><Setting><Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Name><Value>$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Value></Setting><Setting><Name>$MPElement[Name="System!System.Entity"]/DisplayName$</Name><Value>$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Value></Setting></Settings></InstanceSettings><Expression><SimpleExpression><ValueExpression><XPathQuery Type="Boolean">Values/VMWareToolsExists</XPathQuery></ValueExpression><Operator>Equal</Operator><ValueExpression><Value Type="Boolean">true</Value></ValueExpression></SimpleExpression></Expression></DataSource>
+        <DataSource ID="DS" TypeID="Windows!Microsoft.Windows.FilteredRegistryDiscoveryProvider">
+          <ComputerName>$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+          <RegistryAttributeDefinitions>
+            <RegistryAttributeDefinition>
+              <AttributeName>VMWareToolsExists</AttributeName>
+              <Path>SOFTWARE\VMWare, Inc.\VMWare Tools</Path>
+              <PathType>0</PathType>
+              <AttributeType>0</AttributeType>
+            </RegistryAttributeDefinition>
+          </RegistryAttributeDefinitions>
+          <Frequency>86400</Frequency>
+          <ClassId>$MPElement[Name="VMWare.VirtualMachine.Discovery.VirtualMachine"]$</ClassId>
+          <InstanceSettings>
+            <Settings>
+              <Setting>
+                <Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Name>
+                <Value>$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name="System!System.Entity"]/DisplayName$</Name>
+                <Value>$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Value>
+              </Setting>
+            </Settings>
+          </InstanceSettings>
+          <Expression>
+            <SimpleExpression>
+              <ValueExpression>
+                <XPathQuery Type="Boolean">Values/VMWareToolsExists</XPathQuery>
+              </ValueExpression>
+              <Operator>Equal</Operator>
+              <ValueExpression>
+                <Value Type="Boolean">true</Value>
+              </ValueExpression>
+            </SimpleExpression>
+          </Expression>
+        </DataSource>
       </Discovery>
       <Discovery ID="Microsoft.Windows.Computer.Addendum.Extended.Class.Discovery" Enabled="true" Target="Windows!Microsoft.Windows.OperatingSystem" ConfirmDelivery="false" Remotable="false" Priority="Normal">
         <Category>Discovery</Category>
@@ -304,57 +516,474 @@
             <Property TypeID="Microsoft.Windows.Computer.Addendum.Extended.Class" PropertyID="Contact" />
           </DiscoveryClass>
         </DiscoveryTypes>
-        <DataSource ID="DS" TypeID="Windows!Microsoft.Windows.FilteredRegistryDiscoveryProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><RegistryAttributeDefinitions><RegistryAttributeDefinition><AttributeName>LabExists</AttributeName><Path>SOFTWARE\Lab</Path><PathType>0</PathType><AttributeType>0</AttributeType></RegistryAttributeDefinition><RegistryAttributeDefinition><AttributeName>Division</AttributeName><Path>SOFTWARE\Microsoft\Microsoft Operations Manager\MP\$Target/ManagementGroup/Name$\Division</Path><PathType>1</PathType><AttributeType>1</AttributeType></RegistryAttributeDefinition><RegistryAttributeDefinition><AttributeName>Service</AttributeName><Path>SOFTWARE\Microsoft\Microsoft Operations Manager\MP\$Target/ManagementGroup/Name$\Service</Path><PathType>1</PathType><AttributeType>1</AttributeType></RegistryAttributeDefinition><RegistryAttributeDefinition><AttributeName>Environment</AttributeName><Path>SOFTWARE\Microsoft\Microsoft Operations Manager\MP\$Target/ManagementGroup/Name$\Environment</Path><PathType>1</PathType><AttributeType>1</AttributeType></RegistryAttributeDefinition><RegistryAttributeDefinition><AttributeName>Contact</AttributeName><Path>SOFTWARE\Microsoft\Microsoft Operations Manager\MP\$Target/ManagementGroup/Name$\Contact</Path><PathType>1</PathType><AttributeType>1</AttributeType></RegistryAttributeDefinition></RegistryAttributeDefinitions><Frequency>86400</Frequency><ClassId>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]$</ClassId><InstanceSettings><Settings><Setting><Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Name><Value>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Value></Setting><Setting><Name>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]/Division$</Name><Value>$Data/Values/Division$</Value></Setting><Setting><Name>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]/Service$</Name><Value>$Data/Values/Service$</Value></Setting><Setting><Name>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]/Environment$</Name><Value>$Data/Values/Environment$</Value></Setting><Setting><Name>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]/Contact$</Name><Value>$Data/Values/Contact$</Value></Setting></Settings></InstanceSettings><Expression><SimpleExpression><ValueExpression><XPathQuery Type="Boolean">Values/LabExists</XPathQuery></ValueExpression><Operator>Equal</Operator><ValueExpression><Value Type="Boolean">true</Value></ValueExpression></SimpleExpression></Expression></DataSource>
+        <DataSource ID="DS" TypeID="Windows!Microsoft.Windows.FilteredRegistryDiscoveryProvider">
+          <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+          <RegistryAttributeDefinitions>
+            <RegistryAttributeDefinition>
+              <AttributeName>LabExists</AttributeName>
+              <Path>SOFTWARE\Lab</Path>
+              <PathType>0</PathType>
+              <AttributeType>0</AttributeType>
+            </RegistryAttributeDefinition>
+            <RegistryAttributeDefinition>
+              <AttributeName>Division</AttributeName>
+              <Path>SOFTWARE\Microsoft\Microsoft Operations Manager\MP\$Target/ManagementGroup/Name$\Division</Path>
+              <PathType>1</PathType>
+              <AttributeType>1</AttributeType>
+            </RegistryAttributeDefinition>
+            <RegistryAttributeDefinition>
+              <AttributeName>Service</AttributeName>
+              <Path>SOFTWARE\Microsoft\Microsoft Operations Manager\MP\$Target/ManagementGroup/Name$\Service</Path>
+              <PathType>1</PathType>
+              <AttributeType>1</AttributeType>
+            </RegistryAttributeDefinition>
+            <RegistryAttributeDefinition>
+              <AttributeName>Environment</AttributeName>
+              <Path>SOFTWARE\Microsoft\Microsoft Operations Manager\MP\$Target/ManagementGroup/Name$\Environment</Path>
+              <PathType>1</PathType>
+              <AttributeType>1</AttributeType>
+            </RegistryAttributeDefinition>
+            <RegistryAttributeDefinition>
+              <AttributeName>Contact</AttributeName>
+              <Path>SOFTWARE\Microsoft\Microsoft Operations Manager\MP\$Target/ManagementGroup/Name$\Contact</Path>
+              <PathType>1</PathType>
+              <AttributeType>1</AttributeType>
+            </RegistryAttributeDefinition>
+          </RegistryAttributeDefinitions>
+          <Frequency>86400</Frequency>
+          <ClassId>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]$</ClassId>
+          <InstanceSettings>
+            <Settings>
+              <Setting>
+                <Name>$MPElement[Name="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Name>
+                <Value>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]/Division$</Name>
+                <Value>$Data/Values/Division$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]/Service$</Name>
+                <Value>$Data/Values/Service$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]/Environment$</Name>
+                <Value>$Data/Values/Environment$</Value>
+              </Setting>
+              <Setting>
+                <Name>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]/Contact$</Name>
+                <Value>$Data/Values/Contact$</Value>
+              </Setting>
+            </Settings>
+          </InstanceSettings>
+          <Expression>
+            <SimpleExpression>
+              <ValueExpression>
+                <XPathQuery Type="Boolean">Values/LabExists</XPathQuery>
+              </ValueExpression>
+              <Operator>Equal</Operator>
+              <ValueExpression>
+                <Value Type="Boolean">true</Value>
+              </ValueExpression>
+            </SimpleExpression>
+          </Expression>
+        </DataSource>
       </Discovery>
       <Discovery ID="Microsoft.Windows.Computer.Addendum.Extended.Group.DiscoveryRule" Enabled="true" Target="Microsoft.Windows.Computer.Addendum.Extended.Group" ConfirmDelivery="false" Remotable="true" Priority="Normal">
         <Category>Discovery</Category>
         <DiscoveryTypes>
           <DiscoveryRelationship TypeID="MSIGL!Microsoft.SystemCenter.InstanceGroupContainsEntities" />
         </DiscoveryTypes>
-        <DataSource ID="GroupPopulationDataSource" TypeID="SC!Microsoft.SystemCenter.GroupPopulator"><RuleId>$MPElement$</RuleId><GroupInstanceId>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Group"]$</GroupInstanceId><MembershipRules><MembershipRule><MonitoringClass>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]$</MonitoringClass><RelationshipClass>$MPElement[Name="MSIGL!Microsoft.SystemCenter.InstanceGroupContainsEntities"]$</RelationshipClass><Expression><SimpleExpression><ValueExpression><Property>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]/Environment$</Property></ValueExpression><Operator>Equal</Operator><ValueExpression><Value>Test</Value></ValueExpression></SimpleExpression></Expression></MembershipRule><MembershipRule><MonitoringClass>$MPElement[Name="MWSL!Microsoft.Windows.Server.NetworkAdapter"]$</MonitoringClass><RelationshipClass>$MPElement[Name="MSIGL!Microsoft.SystemCenter.InstanceGroupContainsEntities"]$</RelationshipClass><Expression><Contained><MonitoringClass>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]$</MonitoringClass><Expression><Contained><MonitoringClass>$Target/Id$</MonitoringClass></Contained></Expression></Contained></Expression></MembershipRule><MembershipRule><MonitoringClass>$MPElement[Name="MWSL!Microsoft.Windows.Server.LogicalDisk"]$</MonitoringClass><RelationshipClass>$MPElement[Name="MSIGL!Microsoft.SystemCenter.InstanceGroupContainsEntities"]$</RelationshipClass><Expression><Contained><MonitoringClass>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]$</MonitoringClass><Expression><Contained><MonitoringClass>$Target/Id$</MonitoringClass></Contained></Expression></Contained></Expression></MembershipRule><MembershipRule><MonitoringClass>$MPElement[Name="Windows!Microsoft.Windows.OperatingSystem"]$</MonitoringClass><RelationshipClass>$MPElement[Name="MSIGL!Microsoft.SystemCenter.InstanceGroupContainsEntities"]$</RelationshipClass><Expression><Contained><MonitoringClass>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]$</MonitoringClass><Expression><Contained><MonitoringClass>$Target/Id$</MonitoringClass></Contained></Expression></Contained></Expression></MembershipRule><MembershipRule><MonitoringClass>$MPElement[Name="SC!Microsoft.SystemCenter.HealthService"]$</MonitoringClass><RelationshipClass>$MPElement[Name="MSIGL!Microsoft.SystemCenter.InstanceGroupContainsEntities"]$</RelationshipClass><Expression><Contained><MonitoringClass>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]$</MonitoringClass><Expression><Contained><MonitoringClass>$Target/Id$</MonitoringClass></Contained></Expression></Contained></Expression></MembershipRule></MembershipRules></DataSource>
+        <DataSource ID="GroupPopulationDataSource" TypeID="SC!Microsoft.SystemCenter.GroupPopulator">
+          <RuleId>$MPElement$</RuleId>
+          <GroupInstanceId>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Group"]$</GroupInstanceId>
+          <MembershipRules>
+            <MembershipRule>
+              <MonitoringClass>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]$</MonitoringClass>
+              <RelationshipClass>$MPElement[Name="MSIGL!Microsoft.SystemCenter.InstanceGroupContainsEntities"]$</RelationshipClass>
+              <Expression>
+                <SimpleExpression>
+                  <ValueExpression>
+                    <Property>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]/Environment$</Property>
+                  </ValueExpression>
+                  <Operator>Equal</Operator>
+                  <ValueExpression>
+                    <Value>Test</Value>
+                  </ValueExpression>
+                </SimpleExpression>
+              </Expression>
+            </MembershipRule>
+            <MembershipRule>
+              <MonitoringClass>$MPElement[Name="MWSL!Microsoft.Windows.Server.NetworkAdapter"]$</MonitoringClass>
+              <RelationshipClass>$MPElement[Name="MSIGL!Microsoft.SystemCenter.InstanceGroupContainsEntities"]$</RelationshipClass>
+              <Expression>
+                <Contained>
+                  <MonitoringClass>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]$</MonitoringClass>
+                  <Expression>
+                    <Contained>
+                      <MonitoringClass>$Target/Id$</MonitoringClass>
+                    </Contained>
+                  </Expression>
+                </Contained>
+              </Expression>
+            </MembershipRule>
+            <MembershipRule>
+              <MonitoringClass>$MPElement[Name="MWSL!Microsoft.Windows.Server.LogicalDisk"]$</MonitoringClass>
+              <RelationshipClass>$MPElement[Name="MSIGL!Microsoft.SystemCenter.InstanceGroupContainsEntities"]$</RelationshipClass>
+              <Expression>
+                <Contained>
+                  <MonitoringClass>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]$</MonitoringClass>
+                  <Expression>
+                    <Contained>
+                      <MonitoringClass>$Target/Id$</MonitoringClass>
+                    </Contained>
+                  </Expression>
+                </Contained>
+              </Expression>
+            </MembershipRule>
+            <MembershipRule>
+              <MonitoringClass>$MPElement[Name="Windows!Microsoft.Windows.OperatingSystem"]$</MonitoringClass>
+              <RelationshipClass>$MPElement[Name="MSIGL!Microsoft.SystemCenter.InstanceGroupContainsEntities"]$</RelationshipClass>
+              <Expression>
+                <Contained>
+                  <MonitoringClass>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]$</MonitoringClass>
+                  <Expression>
+                    <Contained>
+                      <MonitoringClass>$Target/Id$</MonitoringClass>
+                    </Contained>
+                  </Expression>
+                </Contained>
+              </Expression>
+            </MembershipRule>
+            <MembershipRule>
+              <MonitoringClass>$MPElement[Name="SC!Microsoft.SystemCenter.HealthService"]$</MonitoringClass>
+              <RelationshipClass>$MPElement[Name="MSIGL!Microsoft.SystemCenter.InstanceGroupContainsEntities"]$</RelationshipClass>
+              <Expression>
+                <Contained>
+                  <MonitoringClass>$MPElement[Name="Microsoft.Windows.Computer.Addendum.Extended.Class"]$</MonitoringClass>
+                  <Expression>
+                    <Contained>
+                      <MonitoringClass>$Target/Id$</MonitoringClass>
+                    </Contained>
+                  </Expression>
+                </Contained>
+              </Expression>
+            </MembershipRule>
+          </MembershipRules>
+        </DataSource>
       </Discovery>
     </Discoveries>
     <Rules>
       <Rule ID="Microsoft.Windows.Computer.Addendum.BigFixClientService.ServiceNotFound.Recovery.Rule" Enabled="true" Target="Windows!Microsoft.Windows.OperatingSystem" ConfirmDelivery="true" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>Alert</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Windows!Microsoft.Windows.EventProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><LogName>Operations Manager</LogName><Expression><And><Expression><SimpleExpression><ValueExpression><XPathQuery Type="UnsignedInteger">EventDisplayNumber</XPathQuery></ValueExpression><Operator>Equal</Operator><ValueExpression><Value Type="UnsignedInteger">3751</Value></ValueExpression></SimpleExpression></Expression><Expression><SimpleExpression><ValueExpression><XPathQuery Type="String">PublisherName</XPathQuery></ValueExpression><Operator>Equal</Operator><ValueExpression><Value Type="String">Health Service Script</Value></ValueExpression></SimpleExpression></Expression><Expression><RegExExpression><ValueExpression><XPathQuery Type="String">Params/Param[2]</XPathQuery></ValueExpression><Operator>ContainsSubstring</Operator><Pattern>BESClient</Pattern></RegExExpression></Expression></And></Expression></DataSource>
+          <DataSource ID="DS" TypeID="Windows!Microsoft.Windows.EventProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <LogName>Operations Manager</LogName>
+            <Expression>
+              <And>
+                <Expression>
+                  <SimpleExpression>
+                    <ValueExpression>
+                      <XPathQuery Type="UnsignedInteger">EventDisplayNumber</XPathQuery>
+                    </ValueExpression>
+                    <Operator>Equal</Operator>
+                    <ValueExpression>
+                      <Value Type="UnsignedInteger">3751</Value>
+                    </ValueExpression>
+                  </SimpleExpression>
+                </Expression>
+                <Expression>
+                  <SimpleExpression>
+                    <ValueExpression>
+                      <XPathQuery Type="String">PublisherName</XPathQuery>
+                    </ValueExpression>
+                    <Operator>Equal</Operator>
+                    <ValueExpression>
+                      <Value Type="String">Health Service Script</Value>
+                    </ValueExpression>
+                  </SimpleExpression>
+                </Expression>
+                <Expression>
+                  <RegExExpression>
+                    <ValueExpression>
+                      <XPathQuery Type="String">Params/Param[2]</XPathQuery>
+                    </ValueExpression>
+                    <Operator>ContainsSubstring</Operator>
+                    <Pattern>BESClient</Pattern>
+                  </RegExExpression>
+                </Expression>
+              </And>
+            </Expression>
+          </DataSource>
         </DataSources>
         <WriteActions>
-          <WriteAction ID="Alert" TypeID="Health!System.Health.GenerateAlert"><Priority>1</Priority><Severity>2</Severity><AlertName /><AlertDescription /><AlertOwner /><AlertMessageId>$MPElement[Name="Microsoft.Windows.Computer.Addendum.BigFixClientService.ServiceNotFound.Recovery.Rule.AlertMessage"]$</AlertMessageId><AlertParameters><AlertParameter1>$Data/EventDescription$</AlertParameter1></AlertParameters><Suppression><SuppressionValue>$Data[Default='']/EventDisplayNumber$</SuppressionValue><SuppressionValue>$Data[Default='']/PublisherName$</SuppressionValue><SuppressionValue>$Data[Default='']/LoggingComputer$</SuppressionValue></Suppression><Custom1 /><Custom2 /><Custom3 /><Custom4 /><Custom5 /><Custom6 /><Custom7 /><Custom8 /><Custom9 /><Custom10 /></WriteAction>
+          <WriteAction ID="Alert" TypeID="Health!System.Health.GenerateAlert">
+            <Priority>1</Priority>
+            <!-- 0=Low 1=Medium 2=High -->
+            <Severity>2</Severity>
+            <!-- 0=Information 1=Warning 2=Critical -->
+            <AlertName />
+            <AlertDescription />
+            <AlertOwner />
+            <AlertMessageId>$MPElement[Name="Microsoft.Windows.Computer.Addendum.BigFixClientService.ServiceNotFound.Recovery.Rule.AlertMessage"]$</AlertMessageId>
+            <AlertParameters>
+              <AlertParameter1>$Data/EventDescription$</AlertParameter1>
+            </AlertParameters>
+            <Suppression>
+              <SuppressionValue>$Data[Default='']/EventDisplayNumber$</SuppressionValue>
+              <SuppressionValue>$Data[Default='']/PublisherName$</SuppressionValue>
+              <SuppressionValue>$Data[Default='']/LoggingComputer$</SuppressionValue>
+            </Suppression>
+            <Custom1 />
+            <Custom2 />
+            <Custom3 />
+            <Custom4 />
+            <Custom5 />
+            <Custom6 />
+            <Custom7 />
+            <Custom8 />
+            <Custom9 />
+            <Custom10 />
+          </WriteAction>
         </WriteActions>
       </Rule>
       <Rule ID="Microsoft.Windows.Computer.Addendum.BigFixClientService.ServiceFoundRunning.Recovery.Rule" Enabled="true" Target="Windows!Microsoft.Windows.OperatingSystem" ConfirmDelivery="true" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>Alert</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Windows!Microsoft.Windows.EventProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><LogName>Operations Manager</LogName><Expression><And><Expression><SimpleExpression><ValueExpression><XPathQuery Type="UnsignedInteger">EventDisplayNumber</XPathQuery></ValueExpression><Operator>Equal</Operator><ValueExpression><Value Type="UnsignedInteger">3752</Value></ValueExpression></SimpleExpression></Expression><Expression><SimpleExpression><ValueExpression><XPathQuery Type="String">PublisherName</XPathQuery></ValueExpression><Operator>Equal</Operator><ValueExpression><Value Type="String">Health Service Script</Value></ValueExpression></SimpleExpression></Expression><Expression><RegExExpression><ValueExpression><XPathQuery Type="String">Params/Param[2]</XPathQuery></ValueExpression><Operator>ContainsSubstring</Operator><Pattern>BESClient</Pattern></RegExExpression></Expression></And></Expression></DataSource>
+          <DataSource ID="DS" TypeID="Windows!Microsoft.Windows.EventProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <LogName>Operations Manager</LogName>
+            <Expression>
+              <And>
+                <Expression>
+                  <SimpleExpression>
+                    <ValueExpression>
+                      <XPathQuery Type="UnsignedInteger">EventDisplayNumber</XPathQuery>
+                    </ValueExpression>
+                    <Operator>Equal</Operator>
+                    <ValueExpression>
+                      <Value Type="UnsignedInteger">3752</Value>
+                    </ValueExpression>
+                  </SimpleExpression>
+                </Expression>
+                <Expression>
+                  <SimpleExpression>
+                    <ValueExpression>
+                      <XPathQuery Type="String">PublisherName</XPathQuery>
+                    </ValueExpression>
+                    <Operator>Equal</Operator>
+                    <ValueExpression>
+                      <Value Type="String">Health Service Script</Value>
+                    </ValueExpression>
+                  </SimpleExpression>
+                </Expression>
+                <Expression>
+                  <RegExExpression>
+                    <ValueExpression>
+                      <XPathQuery Type="String">Params/Param[2]</XPathQuery>
+                    </ValueExpression>
+                    <Operator>ContainsSubstring</Operator>
+                    <Pattern>BESClient</Pattern>
+                  </RegExExpression>
+                </Expression>
+              </And>
+            </Expression>
+          </DataSource>
         </DataSources>
         <WriteActions>
-          <WriteAction ID="Alert" TypeID="Health!System.Health.GenerateAlert"><Priority>1</Priority><Severity>2</Severity><AlertName /><AlertDescription /><AlertOwner /><AlertMessageId>$MPElement[Name="Microsoft.Windows.Computer.Addendum.BigFixClientService.ServiceFoundRunning.Recovery.Rule.AlertMessage"]$</AlertMessageId><AlertParameters><AlertParameter1>$Data/EventDescription$</AlertParameter1></AlertParameters><Suppression><SuppressionValue>$Data[Default='']/EventDisplayNumber$</SuppressionValue><SuppressionValue>$Data[Default='']/PublisherName$</SuppressionValue><SuppressionValue>$Data[Default='']/LoggingComputer$</SuppressionValue></Suppression><Custom1 /><Custom2 /><Custom3 /><Custom4 /><Custom5 /><Custom6 /><Custom7 /><Custom8 /><Custom9 /><Custom10 /></WriteAction>
+          <WriteAction ID="Alert" TypeID="Health!System.Health.GenerateAlert">
+            <Priority>1</Priority>
+            <!-- 0=Low 1=Medium 2=High -->
+            <Severity>2</Severity>
+            <!-- 0=Information 1=Warning 2=Critical -->
+            <AlertName />
+            <AlertDescription />
+            <AlertOwner />
+            <AlertMessageId>$MPElement[Name="Microsoft.Windows.Computer.Addendum.BigFixClientService.ServiceFoundRunning.Recovery.Rule.AlertMessage"]$</AlertMessageId>
+            <AlertParameters>
+              <AlertParameter1>$Data/EventDescription$</AlertParameter1>
+            </AlertParameters>
+            <Suppression>
+              <SuppressionValue>$Data[Default='']/EventDisplayNumber$</SuppressionValue>
+              <SuppressionValue>$Data[Default='']/PublisherName$</SuppressionValue>
+              <SuppressionValue>$Data[Default='']/LoggingComputer$</SuppressionValue>
+            </Suppression>
+            <Custom1 />
+            <Custom2 />
+            <Custom3 />
+            <Custom4 />
+            <Custom5 />
+            <Custom6 />
+            <Custom7 />
+            <Custom8 />
+            <Custom9 />
+            <Custom10 />
+          </WriteAction>
         </WriteActions>
       </Rule>
       <Rule ID="Microsoft.Windows.Computer.Addendum.BigFixClientService.ServiceRecoveryFailed.Recovery.Rule" Enabled="true" Target="Windows!Microsoft.Windows.OperatingSystem" ConfirmDelivery="true" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>Alert</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Windows!Microsoft.Windows.EventProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><LogName>Operations Manager</LogName><Expression><And><Expression><SimpleExpression><ValueExpression><XPathQuery Type="UnsignedInteger">EventDisplayNumber</XPathQuery></ValueExpression><Operator>Equal</Operator><ValueExpression><Value Type="UnsignedInteger">3753</Value></ValueExpression></SimpleExpression></Expression><Expression><SimpleExpression><ValueExpression><XPathQuery Type="String">PublisherName</XPathQuery></ValueExpression><Operator>Equal</Operator><ValueExpression><Value Type="String">Health Service Script</Value></ValueExpression></SimpleExpression></Expression><Expression><RegExExpression><ValueExpression><XPathQuery Type="String">Params/Param[2]</XPathQuery></ValueExpression><Operator>ContainsSubstring</Operator><Pattern>BESClient</Pattern></RegExExpression></Expression></And></Expression></DataSource>
+          <DataSource ID="DS" TypeID="Windows!Microsoft.Windows.EventProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <LogName>Operations Manager</LogName>
+            <Expression>
+              <And>
+                <Expression>
+                  <SimpleExpression>
+                    <ValueExpression>
+                      <XPathQuery Type="UnsignedInteger">EventDisplayNumber</XPathQuery>
+                    </ValueExpression>
+                    <Operator>Equal</Operator>
+                    <ValueExpression>
+                      <Value Type="UnsignedInteger">3753</Value>
+                    </ValueExpression>
+                  </SimpleExpression>
+                </Expression>
+                <Expression>
+                  <SimpleExpression>
+                    <ValueExpression>
+                      <XPathQuery Type="String">PublisherName</XPathQuery>
+                    </ValueExpression>
+                    <Operator>Equal</Operator>
+                    <ValueExpression>
+                      <Value Type="String">Health Service Script</Value>
+                    </ValueExpression>
+                  </SimpleExpression>
+                </Expression>
+                <Expression>
+                  <RegExExpression>
+                    <ValueExpression>
+                      <XPathQuery Type="String">Params/Param[2]</XPathQuery>
+                    </ValueExpression>
+                    <Operator>ContainsSubstring</Operator>
+                    <Pattern>BESClient</Pattern>
+                  </RegExExpression>
+                </Expression>
+              </And>
+            </Expression>
+          </DataSource>
         </DataSources>
         <WriteActions>
-          <WriteAction ID="Alert" TypeID="Health!System.Health.GenerateAlert"><Priority>1</Priority><Severity>2</Severity><AlertName /><AlertDescription /><AlertOwner /><AlertMessageId>$MPElement[Name="Microsoft.Windows.Computer.Addendum.BigFixClientService.ServiceRecoveryFailed.Recovery.Rule.AlertMessage"]$</AlertMessageId><AlertParameters><AlertParameter1>$Data/EventDescription$</AlertParameter1></AlertParameters><Suppression><SuppressionValue>$Data[Default='']/EventDisplayNumber$</SuppressionValue><SuppressionValue>$Data[Default='']/PublisherName$</SuppressionValue><SuppressionValue>$Data[Default='']/LoggingComputer$</SuppressionValue></Suppression><Custom1 /><Custom2 /><Custom3 /><Custom4 /><Custom5 /><Custom6 /><Custom7 /><Custom8 /><Custom9 /><Custom10 /></WriteAction>
+          <WriteAction ID="Alert" TypeID="Health!System.Health.GenerateAlert">
+            <Priority>1</Priority>
+            <!-- 0=Low 1=Medium 2=High -->
+            <Severity>2</Severity>
+            <!-- 0=Information 1=Warning 2=Critical -->
+            <AlertName />
+            <AlertDescription />
+            <AlertOwner />
+            <AlertMessageId>$MPElement[Name="Microsoft.Windows.Computer.Addendum.BigFixClientService.ServiceRecoveryFailed.Recovery.Rule.AlertMessage"]$</AlertMessageId>
+            <AlertParameters>
+              <AlertParameter1>$Data/EventDescription$</AlertParameter1>
+            </AlertParameters>
+            <Suppression>
+              <SuppressionValue>$Data[Default='']/EventDisplayNumber$</SuppressionValue>
+              <SuppressionValue>$Data[Default='']/PublisherName$</SuppressionValue>
+              <SuppressionValue>$Data[Default='']/LoggingComputer$</SuppressionValue>
+            </Suppression>
+            <Custom1 />
+            <Custom2 />
+            <Custom3 />
+            <Custom4 />
+            <Custom5 />
+            <Custom6 />
+            <Custom7 />
+            <Custom8 />
+            <Custom9 />
+            <Custom10 />
+          </WriteAction>
         </WriteActions>
       </Rule>
       <Rule ID="Microsoft.Windows.Computer.Addendum.BigFixClientService.TooManyRecoveryAttempts.Recovery.Rule" Enabled="true" Target="Windows!Microsoft.Windows.OperatingSystem" ConfirmDelivery="true" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>Alert</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Windows!Microsoft.Windows.EventProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><LogName>Operations Manager</LogName><Expression><And><Expression><SimpleExpression><ValueExpression><XPathQuery Type="UnsignedInteger">EventDisplayNumber</XPathQuery></ValueExpression><Operator>Equal</Operator><ValueExpression><Value Type="UnsignedInteger">3754</Value></ValueExpression></SimpleExpression></Expression><Expression><SimpleExpression><ValueExpression><XPathQuery Type="String">PublisherName</XPathQuery></ValueExpression><Operator>Equal</Operator><ValueExpression><Value Type="String">Health Service Script</Value></ValueExpression></SimpleExpression></Expression><Expression><RegExExpression><ValueExpression><XPathQuery Type="String">Params/Param[2]</XPathQuery></ValueExpression><Operator>ContainsSubstring</Operator><Pattern>BESClient</Pattern></RegExExpression></Expression></And></Expression></DataSource>
+          <DataSource ID="DS" TypeID="Windows!Microsoft.Windows.EventProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <LogName>Operations Manager</LogName>
+            <Expression>
+              <And>
+                <Expression>
+                  <SimpleExpression>
+                    <ValueExpression>
+                      <XPathQuery Type="UnsignedInteger">EventDisplayNumber</XPathQuery>
+                    </ValueExpression>
+                    <Operator>Equal</Operator>
+                    <ValueExpression>
+                      <Value Type="UnsignedInteger">3754</Value>
+                    </ValueExpression>
+                  </SimpleExpression>
+                </Expression>
+                <Expression>
+                  <SimpleExpression>
+                    <ValueExpression>
+                      <XPathQuery Type="String">PublisherName</XPathQuery>
+                    </ValueExpression>
+                    <Operator>Equal</Operator>
+                    <ValueExpression>
+                      <Value Type="String">Health Service Script</Value>
+                    </ValueExpression>
+                  </SimpleExpression>
+                </Expression>
+                <Expression>
+                  <RegExExpression>
+                    <ValueExpression>
+                      <XPathQuery Type="String">Params/Param[2]</XPathQuery>
+                    </ValueExpression>
+                    <Operator>ContainsSubstring</Operator>
+                    <Pattern>BESClient</Pattern>
+                  </RegExExpression>
+                </Expression>
+              </And>
+            </Expression>
+          </DataSource>
         </DataSources>
         <WriteActions>
-          <WriteAction ID="Alert" TypeID="Health!System.Health.GenerateAlert"><Priority>1</Priority><Severity>2</Severity><AlertName /><AlertDescription /><AlertOwner /><AlertMessageId>$MPElement[Name="Microsoft.Windows.Computer.Addendum.BigFixClientService.TooManyRecoveryAttempts.Recovery.Rule.AlertMessage"]$</AlertMessageId><AlertParameters><AlertParameter1>$Data/EventDescription$</AlertParameter1></AlertParameters><Suppression><SuppressionValue>$Data[Default='']/EventDisplayNumber$</SuppressionValue><SuppressionValue>$Data[Default='']/PublisherName$</SuppressionValue><SuppressionValue>$Data[Default='']/LoggingComputer$</SuppressionValue></Suppression><Custom1 /><Custom2 /><Custom3 /><Custom4 /><Custom5 /><Custom6 /><Custom7 /><Custom8 /><Custom9 /><Custom10 /></WriteAction>
+          <WriteAction ID="Alert" TypeID="Health!System.Health.GenerateAlert">
+            <Priority>1</Priority>
+            <!-- 0=Low 1=Medium 2=High -->
+            <Severity>2</Severity>
+            <!-- 0=Information 1=Warning 2=Critical -->
+            <AlertName />
+            <AlertDescription />
+            <AlertOwner />
+            <AlertMessageId>$MPElement[Name="Microsoft.Windows.Computer.Addendum.BigFixClientService.TooManyRecoveryAttempts.Recovery.Rule.AlertMessage"]$</AlertMessageId>
+            <AlertParameters>
+              <AlertParameter1>$Data/EventDescription$</AlertParameter1>
+            </AlertParameters>
+            <Suppression>
+              <SuppressionValue>$Data[Default='']/EventDisplayNumber$</SuppressionValue>
+              <SuppressionValue>$Data[Default='']/PublisherName$</SuppressionValue>
+              <SuppressionValue>$Data[Default='']/LoggingComputer$</SuppressionValue>
+            </Suppression>
+            <Custom1 />
+            <Custom2 />
+            <Custom3 />
+            <Custom4 />
+            <Custom5 />
+            <Custom6 />
+            <Custom7 />
+            <Custom8 />
+            <Custom9 />
+            <Custom10 />
+          </WriteAction>
         </WriteActions>
       </Rule>
       <Rule ID="Windows.Computer.Addendum.VMWare.VirtualMachine.CPUStolenTime" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>PerformanceCollection</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><CounterName>CPU stolen time</CounterName><ObjectName>VM Processor</ObjectName><InstanceName>_Total</InstanceName><AllInstances>false</AllInstances><Frequency>900</Frequency><Tolerance>5</Tolerance><ToleranceType>Absolute</ToleranceType><MaximumSampleSeparation>10</MaximumSampleSeparation></DataSource>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>CPU stolen time</CounterName>
+            <ObjectName>VM Processor</ObjectName>
+            <InstanceName>_Total</InstanceName>
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
         </DataSources>
         <WriteActions>
           <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
@@ -364,7 +993,17 @@
       <Rule ID="Windows.Computer.Addendum.VMWare.VirtualMachine.EffectiveVMSpeedinMHz" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>PerformanceCollection</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><CounterName>Effective VM Speed in MHz</CounterName><ObjectName>VM Processor</ObjectName><InstanceName>_Total</InstanceName><AllInstances>false</AllInstances><Frequency>900</Frequency><Tolerance>5</Tolerance><ToleranceType>Absolute</ToleranceType><MaximumSampleSeparation>10</MaximumSampleSeparation></DataSource>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Effective VM Speed in MHz</CounterName>
+            <ObjectName>VM Processor</ObjectName>
+            <InstanceName>_Total</InstanceName>
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
         </DataSources>
         <WriteActions>
           <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
@@ -374,7 +1013,17 @@
       <Rule ID="Windows.Computer.Addendum.VMWare.VirtualMachine.HostProcessorspeedinMHz" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>PerformanceCollection</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><CounterName>Host processor speed in MHz</CounterName><ObjectName>VM Processor</ObjectName><InstanceName>_Total</InstanceName><AllInstances>false</AllInstances><Frequency>900</Frequency><Tolerance>5</Tolerance><ToleranceType>Absolute</ToleranceType><MaximumSampleSeparation>10</MaximumSampleSeparation></DataSource>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Host processor speed in MHz</CounterName>
+            <ObjectName>VM Processor</ObjectName>
+            <InstanceName>_Total</InstanceName>
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
         </DataSources>
         <WriteActions>
           <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
@@ -384,7 +1033,17 @@
       <Rule ID="Windows.Computer.Addendum.VMWare.VirtualMachine.LimitinMhz" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>PerformanceCollection</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><CounterName>Limit in MHz</CounterName><ObjectName>VM Processor</ObjectName><InstanceName>_Total</InstanceName><AllInstances>false</AllInstances><Frequency>900</Frequency><Tolerance>5</Tolerance><ToleranceType>Absolute</ToleranceType><MaximumSampleSeparation>10</MaximumSampleSeparation></DataSource>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Limit in MHz</CounterName>
+            <ObjectName>VM Processor</ObjectName>
+            <InstanceName>_Total</InstanceName>
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
         </DataSources>
         <WriteActions>
           <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
@@ -394,7 +1053,17 @@
       <Rule ID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryActiveMB" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>PerformanceCollection</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><CounterName>Memory Active in MB</CounterName><ObjectName>VM Memory</ObjectName><InstanceName /><AllInstances>false</AllInstances><Frequency>900</Frequency><Tolerance>5</Tolerance><ToleranceType>Absolute</ToleranceType><MaximumSampleSeparation>10</MaximumSampleSeparation></DataSource>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Active in MB</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
         </DataSources>
         <WriteActions>
           <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
@@ -404,7 +1073,17 @@
       <Rule ID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryBalloonedMB" Enabled="true" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>PerformanceCollection</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><CounterName>Memory Ballooned in MB</CounterName><ObjectName>VM Memory</ObjectName><InstanceName /><AllInstances>false</AllInstances><Frequency>900</Frequency><Tolerance>5</Tolerance><ToleranceType>Absolute</ToleranceType><MaximumSampleSeparation>10</MaximumSampleSeparation></DataSource>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Ballooned in MB</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
         </DataSources>
         <WriteActions>
           <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
@@ -414,7 +1093,17 @@
       <Rule ID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryLimitMB" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>PerformanceCollection</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><CounterName>Memory Limit in MB</CounterName><ObjectName>VM Memory</ObjectName><InstanceName /><AllInstances>false</AllInstances><Frequency>900</Frequency><Tolerance>5</Tolerance><ToleranceType>Absolute</ToleranceType><MaximumSampleSeparation>10</MaximumSampleSeparation></DataSource>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Limit in MB</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
         </DataSources>
         <WriteActions>
           <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
@@ -424,7 +1113,17 @@
       <Rule ID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryMappedMB" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>PerformanceCollection</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><CounterName>Memory Mapped in MB</CounterName><ObjectName>VM Memory</ObjectName><InstanceName /><AllInstances>false</AllInstances><Frequency>900</Frequency><Tolerance>5</Tolerance><ToleranceType>Absolute</ToleranceType><MaximumSampleSeparation>10</MaximumSampleSeparation></DataSource>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Mapped in MB</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
         </DataSources>
         <WriteActions>
           <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
@@ -434,7 +1133,17 @@
       <Rule ID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryOverheadMB" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>PerformanceCollection</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><CounterName>Memory Overhead in MB</CounterName><ObjectName>VM Memory</ObjectName><InstanceName /><AllInstances>false</AllInstances><Frequency>900</Frequency><Tolerance>5</Tolerance><ToleranceType>Absolute</ToleranceType><MaximumSampleSeparation>10</MaximumSampleSeparation></DataSource>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Overhead in MB</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
         </DataSources>
         <WriteActions>
           <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
@@ -444,7 +1153,17 @@
       <Rule ID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryReservationMB" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>PerformanceCollection</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><CounterName>Memory Reservation in MB</CounterName><ObjectName>VM Memory</ObjectName><InstanceName /><AllInstances>false</AllInstances><Frequency>900</Frequency><Tolerance>5</Tolerance><ToleranceType>Absolute</ToleranceType><MaximumSampleSeparation>10</MaximumSampleSeparation></DataSource>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Reservation in MB</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
         </DataSources>
         <WriteActions>
           <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
@@ -454,7 +1173,17 @@
       <Rule ID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemorySharedMB" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>PerformanceCollection</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><CounterName>Memory Shared in MB</CounterName><ObjectName>VM Memory</ObjectName><InstanceName /><AllInstances>false</AllInstances><Frequency>900</Frequency><Tolerance>5</Tolerance><ToleranceType>Absolute</ToleranceType><MaximumSampleSeparation>10</MaximumSampleSeparation></DataSource>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Shared in MB</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
         </DataSources>
         <WriteActions>
           <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
@@ -464,7 +1193,17 @@
       <Rule ID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemorySharedSavedMB" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>PerformanceCollection</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><CounterName>Memory Shared Saved in MB</CounterName><ObjectName>VM Memory</ObjectName><InstanceName /><AllInstances>false</AllInstances><Frequency>900</Frequency><Tolerance>5</Tolerance><ToleranceType>Absolute</ToleranceType><MaximumSampleSeparation>10</MaximumSampleSeparation></DataSource>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Shared Saved in MB</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
         </DataSources>
         <WriteActions>
           <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
@@ -474,7 +1213,17 @@
       <Rule ID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryShares" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>PerformanceCollection</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><CounterName>Memory Shares</CounterName><ObjectName>VM Memory</ObjectName><InstanceName /><AllInstances>false</AllInstances><Frequency>900</Frequency><Tolerance>5</Tolerance><ToleranceType>Absolute</ToleranceType><MaximumSampleSeparation>10</MaximumSampleSeparation></DataSource>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Shares</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
         </DataSources>
         <WriteActions>
           <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
@@ -484,7 +1233,17 @@
       <Rule ID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemorySwappedMB" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>PerformanceCollection</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><CounterName>Memory Swapped in MB</CounterName><ObjectName>VM Memory</ObjectName><InstanceName /><AllInstances>false</AllInstances><Frequency>900</Frequency><Tolerance>5</Tolerance><ToleranceType>Absolute</ToleranceType><MaximumSampleSeparation>10</MaximumSampleSeparation></DataSource>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Swapped in MB</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
         </DataSources>
         <WriteActions>
           <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
@@ -494,7 +1253,17 @@
       <Rule ID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryUsedMB" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>PerformanceCollection</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><CounterName>Memory Used in MB</CounterName><ObjectName>VM Memory</ObjectName><InstanceName /><AllInstances>false</AllInstances><Frequency>900</Frequency><Tolerance>5</Tolerance><ToleranceType>Absolute</ToleranceType><MaximumSampleSeparation>10</MaximumSampleSeparation></DataSource>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Used in MB</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
         </DataSources>
         <WriteActions>
           <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
@@ -504,7 +1273,17 @@
       <Rule ID="Windows.Computer.Addendum.VMWare.VirtualMachine.PercentProcessorTime" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>PerformanceCollection</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><CounterName>% Processor Time</CounterName><ObjectName>VM Processor</ObjectName><InstanceName>_Total</InstanceName><AllInstances>false</AllInstances><Frequency>900</Frequency><Tolerance>5</Tolerance><ToleranceType>Absolute</ToleranceType><MaximumSampleSeparation>10</MaximumSampleSeparation></DataSource>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>% Processor Time</CounterName>
+            <ObjectName>VM Processor</ObjectName>
+            <InstanceName>_Total</InstanceName>
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
         </DataSources>
         <WriteActions>
           <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
@@ -514,7 +1293,17 @@
       <Rule ID="Windows.Computer.Addendum.VMWare.VirtualMachine.ReservationinMHz" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>PerformanceCollection</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><CounterName>Resrevation in MHz</CounterName><ObjectName>VM Processor</ObjectName><InstanceName>_Total</InstanceName><AllInstances>false</AllInstances><Frequency>900</Frequency><Tolerance>5</Tolerance><ToleranceType>Absolute</ToleranceType><MaximumSampleSeparation>10</MaximumSampleSeparation></DataSource>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Resrevation in MHz</CounterName>
+            <ObjectName>VM Processor</ObjectName>
+            <InstanceName>_Total</InstanceName>
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
         </DataSources>
         <WriteActions>
           <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
@@ -524,7 +1313,17 @@
       <Rule ID="Windows.Computer.Addendum.VMWare.VirtualMachine.Shares" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>PerformanceCollection</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><CounterName>Shares</CounterName><ObjectName>VM Processor</ObjectName><InstanceName>_Total</InstanceName><AllInstances>false</AllInstances><Frequency>900</Frequency><Tolerance>5</Tolerance><ToleranceType>Absolute</ToleranceType><MaximumSampleSeparation>10</MaximumSampleSeparation></DataSource>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Shares</CounterName>
+            <ObjectName>VM Processor</ObjectName>
+            <InstanceName>_Total</InstanceName>
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
         </DataSources>
         <WriteActions>
           <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
@@ -534,7 +1333,17 @@
       <Rule ID="Windows.Computer.Addendum.VMWare.VirtualMachine.TargetSize" Enabled="false" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>PerformanceCollection</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><CounterName>Memory Target Size</CounterName><ObjectName>VM Memory</ObjectName><InstanceName /><AllInstances>false</AllInstances><Frequency>900</Frequency><Tolerance>5</Tolerance><ToleranceType>Absolute</ToleranceType><MaximumSampleSeparation>10</MaximumSampleSeparation></DataSource>
+          <DataSource ID="DS" TypeID="Perf!System.Performance.OptimizedDataProvider">
+            <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+            <CounterName>Memory Target Size</CounterName>
+            <ObjectName>VM Memory</ObjectName>
+            <InstanceName />
+            <AllInstances>false</AllInstances>
+            <Frequency>900</Frequency>
+            <Tolerance>5</Tolerance>
+            <ToleranceType>Absolute</ToleranceType>
+            <MaximumSampleSeparation>10</MaximumSampleSeparation>
+          </DataSource>
         </DataSources>
         <WriteActions>
           <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
@@ -544,19 +1353,37 @@
       <Rule ID="Microsoft.Windows.Computer.Addendum.SpacedUsedMB.Script.Perf.Rule" Enabled="false" Target="Windows!Microsoft.Windows.LogicalDisk" ConfirmDelivery="false" Remotable="true" Priority="Normal" DiscardLevel="100">
         <Category>PerformanceCollection</Category>
         <DataSources>
-          <DataSource ID="DS" TypeID="Microsoft.Windows.Computer.Addendum.SpacedUsedMB.Script.Perf.Datasource"><IntervalSeconds>900</IntervalSeconds><SyncTime></SyncTime><TimeoutSeconds>30</TimeoutSeconds></DataSource>
+          <DataSource ID="DS" TypeID="Microsoft.Windows.Computer.Addendum.SpacedUsedMB.Script.Perf.Datasource">
+            <IntervalSeconds>900</IntervalSeconds>
+            <SyncTime></SyncTime>
+            <TimeoutSeconds>30</TimeoutSeconds>
+          </DataSource>
         </DataSources>
-        <ConditionDetection ID="System.Performance.DataGenericMapper" TypeID="Perf!System.Performance.DataGenericMapper"><ObjectName>LogicalDisk</ObjectName><CounterName>Space Used (MB)</CounterName><InstanceName>$Data/Property[@Name='Instance']$</InstanceName><Value>$Data/Property[@Name='Value']$</Value></ConditionDetection>
+        <ConditionDetection ID="System.Performance.DataGenericMapper" TypeID="Perf!System.Performance.DataGenericMapper">
+          <ObjectName>LogicalDisk</ObjectName>
+          <CounterName>Space Used (MB)</CounterName>
+          <InstanceName>$Data/Property[@Name='Instance']$</InstanceName>
+          <Value>$Data/Property[@Name='Value']$</Value>
+        </ConditionDetection>
         <WriteActions>
           <WriteAction ID="WriteToDB" TypeID="SC!Microsoft.SystemCenter.CollectPerformanceData" />
+          <!-- Can be optional - collect this data to the Operations Database.  -->
           <WriteAction ID="WriteToDW" TypeID="MSDL!Microsoft.SystemCenter.DataWarehouse.PublishPerformanceData" />
+          <!-- Can be optional - collect this data to the Data Warehouse Database -->
         </WriteActions>
       </Rule>
     </Rules>
     <Tasks>
       <Task ID="Microsoft.Windows.Computer.Addendum.AddEnvironmentRegistryEntries.Task" Accessibility="Public" Enabled="true" Target="Windows!Microsoft.Windows.Computer" Timeout="120" Remotable="true">
         <Category>Custom</Category>
-        <WriteAction ID="PSWA" TypeID="Microsoft.Windows.Computer.Addendum.AddEnvironmentRegistryEntries.Task.WA"><Division>ENTER_CUSTOM_VALUE</Division><Service>ENTER_CUSTOM_VALUE</Service><Environment>ENTER_CUSTOM_VALUE</Environment><Contact>ENTER_CUSTOM_VALUE</Contact><MGName>$Target/ManagementGroup/Name$</MGName><TimeoutSeconds>60</TimeoutSeconds></WriteAction>
+        <WriteAction ID="PSWA" TypeID="Microsoft.Windows.Computer.Addendum.AddEnvironmentRegistryEntries.Task.WA">
+          <Division>ENTER_CUSTOM_VALUE</Division>
+          <Service>ENTER_CUSTOM_VALUE</Service>
+          <Environment>ENTER_CUSTOM_VALUE</Environment>
+          <Contact>ENTER_CUSTOM_VALUE</Contact>
+          <MGName>$Target/ManagementGroup/Name$</MGName>
+          <TimeoutSeconds>60</TimeoutSeconds>
+        </WriteAction>
       </Task>
     </Tasks>
     <Monitors>
@@ -564,9 +1391,13 @@
         <Category>AvailabilityHealth</Category>
         <AlertSettings AlertMessage="Microsoft.Windows.Computer.Addendum.BigFixClientService.Service.Monitor.AlertMessage">
           <AlertOnState>Warning</AlertOnState>
+          <!-- Warning/Error - This must match a possible OperationalState\HealthState below -->
           <AutoResolve>true</AutoResolve>
+          <!-- true/false -->
           <AlertPriority>Normal</AlertPriority>
+          <!-- Low/Normal/High -->
           <AlertSeverity>Error</AlertSeverity>
+          <!-- Error/Warning/Information/MatchMonitorHealth -->
           <AlertParameters>
             <AlertParameter1>$Data/Context/Property[@Name='Name']$</AlertParameter1>
             <AlertParameter2>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</AlertParameter2>
@@ -574,9 +1405,20 @@
         </AlertSettings>
         <OperationalStates>
           <OperationalState ID="Running" MonitorTypeStateID="Running" HealthState="Success" />
+          <!-- HealthState can be Error/Warning/Success -->
           <OperationalState ID="NotRunning" MonitorTypeStateID="NotRunning" HealthState="Warning" />
+          <!-- HealthState can be Error/Warning/Success -->
         </OperationalStates>
-        <Configuration><ComputerName /><ServiceName>BESClient</ServiceName><IntervalSeconds>30</IntervalSeconds><CheckStartupType>true</CheckStartupType><Samples>2</Samples></Configuration>
+        <Configuration>
+          <ComputerName />
+          <ServiceName>BESClient</ServiceName>
+          <!-- This is the service name as seen in the registry at HKLM\SYSTEM\CCS\Services -->
+          <IntervalSeconds>30</IntervalSeconds>
+          <!-- How often to check the state of the service.  Every 30 seconds is the default.-->
+          <CheckStartupType>true</CheckStartupType>
+          <Samples>2</Samples>
+          <!-- The number of consecutive times a service is detected as not running before changing state of the monitor. 2 samples is the default -->
+        </Configuration>
       </UnitMonitor>
       <UnitMonitor ID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryBalloonedMB.Monitor" Accessibility="Public" Enabled="true" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ParentMonitorID="Health!System.Health.PerformanceState" Remotable="true" Priority="Normal" TypeID="Perf!System.Performance.ConsecutiveSamplesThreshold" ConfirmDelivery="false">
         <Category>PerformanceHealth</Category>
@@ -597,7 +1439,17 @@
           <OperationalState ID="UIGeneratedOpStateId7767e916872f4e7a8b75d54a8c7c4fd1" MonitorTypeStateID="ConditionFalse" HealthState="Success" />
           <OperationalState ID="UIGeneratedOpStateId5d6cbccddff14165a5ad5d91bdc5b40c" MonitorTypeStateID="ConditionTrue" HealthState="Error" />
         </OperationalStates>
-        <Configuration><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName><CounterName>Memory Ballooned in MB</CounterName><ObjectName>VM Memory</ObjectName><InstanceName /><AllInstances>false</AllInstances><Frequency>300</Frequency><Threshold>0</Threshold><Direction>greater</Direction><NumSamples>2</NumSamples></Configuration>
+        <Configuration>
+          <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$</ComputerName>
+          <CounterName>Memory Ballooned in MB</CounterName>
+          <ObjectName>VM Memory</ObjectName>
+          <InstanceName />
+          <AllInstances>false</AllInstances>
+          <Frequency>300</Frequency>
+          <Threshold>0</Threshold>
+          <Direction>greater</Direction>
+          <NumSamples>2</NumSamples>
+        </Configuration>
       </UnitMonitor>
       <UnitMonitor ID="Windows.Computer.Addendum.VMWareToolsService" Accessibility="Public" Enabled="true" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" ParentMonitorID="Health!System.Health.AvailabilityState" Remotable="true" Priority="Normal" TypeID="Windows!Microsoft.Windows.CheckNTServiceStateMonitorType" ConfirmDelivery="false">
         <Category>AvailabilityHealth</Category>
@@ -611,13 +1463,19 @@
           <OperationalState ID="Running" MonitorTypeStateID="Running" HealthState="Success" />
           <OperationalState ID="NotRunning" MonitorTypeStateID="NotRunning" HealthState="Warning" />
         </OperationalStates>
-        <Configuration><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</ComputerName><ServiceName>VMTools</ServiceName><CheckStartupType>true</CheckStartupType></Configuration>
+        <Configuration>
+          <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</ComputerName>
+          <ServiceName>VMTools</ServiceName>
+          <CheckStartupType>true</CheckStartupType>
+        </Configuration>
       </UnitMonitor>
     </Monitors>
     <Recoveries>
       <Recovery ID="Microsoft.Windows.Computer.Addendum.BigFixClientService.Service.Recovery" Accessibility="Public" Enabled="false" Target="Windows!Microsoft.Windows.OperatingSystem" Monitor="Microsoft.Windows.Computer.Addendum.BigFixClientService.Service.Monitor" ResetMonitor="false" ExecuteOnState="Warning" Remotable="true" Timeout="300">
         <Category>Custom</Category>
-        <WriteAction ID="PSWA" TypeID="Windows!Microsoft.Windows.PowerShellWriteAction"><ScriptName>Microsoft.Windows.Computer.Addendum.BigFixClientService.Service.Recovery.ps1</ScriptName><ScriptBody>
+        <WriteAction ID="PSWA" TypeID="Windows!Microsoft.Windows.PowerShellWriteAction">
+          <ScriptName>Microsoft.Windows.Computer.Addendum.BigFixClientService.Service.Recovery.ps1</ScriptName>
+          <ScriptBody>
             #=================================================================================
             #  Script to restart a service
             #
@@ -751,11 +1609,16 @@
             write-host "Script Completed. Script Runtime: ($ScriptTime) seconds."
             #=================================================================================
             # End of script
-          </ScriptBody><TimeoutSeconds>240</TimeoutSeconds></WriteAction>
+          </ScriptBody>
+          <TimeoutSeconds>240</TimeoutSeconds>
+        </WriteAction>
       </Recovery>
       <Recovery ID="Windows.Computer.Addendum.VMWareToolsService.Recovery" Accessibility="Internal" Enabled="true" Target="VMWare.VirtualMachine.Discovery.VirtualMachine" Monitor="Windows.Computer.Addendum.VMWareToolsService" ResetMonitor="true" ExecuteOnState="Warning" Remotable="true" Timeout="300">
         <Category>Custom</Category>
-        <WriteAction ID="StartService" TypeID="Windows!Microsoft.Windows.ServiceControlManager.StartService"><ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</ComputerName><ServiceName>VMTools</ServiceName></WriteAction>
+        <WriteAction ID="StartService" TypeID="Windows!Microsoft.Windows.ServiceControlManager.StartService">
+          <ComputerName>$Target/Host/Property[Type="Windows!Microsoft.Windows.Computer"]/PrincipalName$</ComputerName>
+          <ServiceName>VMTools</ServiceName>
+        </WriteAction>
       </Recovery>
     </Recoveries>
   </Monitoring>
@@ -1043,85 +1906,247 @@
       </DisplayStrings>
       <KnowledgeArticles>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This management pack populates the attributes "GMT Offset In Minutes" and "Virtual Machine" for Windows Computer objects.</maml:para><maml:para>The GMT Offset in minutes discovery is a single discovery that runs once per day.  It will calculate the *current* offset from GMT.</maml:para><maml:para>The Virtual Machine discovery is a two part discovery based on the value of Manufacturer in Win32_ComputerSystem.  It will allow organizations using non Hyper-V hosts to identify VMs (value will be true).</maml:para></maml:section><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Acknowledgements</maml:title><maml:para>The Virtual Machine Discovery is based on work by Kevin Holman and Pete Zerger.</maml:para><maml:para>The GMT Offset Discovery is based on work by Kevin Holman.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This management pack populates the attributes "GMT Offset In Minutes" and "Virtual Machine" for Windows Computer objects.</maml:para>
+              <maml:para>The GMT Offset in minutes discovery is a single discovery that runs once per day.  It will calculate the *current* offset from GMT.</maml:para>
+              <maml:para>The Virtual Machine discovery is a two part discovery based on the value of Manufacturer in Win32_ComputerSystem.  It will allow organizations using non Hyper-V hosts to identify VMs (value will be true).</maml:para>
+            </maml:section>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Acknowledgements</maml:title>
+              <maml:para>The Virtual Machine Discovery is based on work by Kevin Holman and Pete Zerger.</maml:para>
+              <maml:para>The GMT Offset Discovery is based on work by Kevin Holman.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.GMT.Offset.Discovery" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>The GMT Offset in minutes discovery is a single discovery that runs once per day.  It will calculate the *current* offset from GMT from the value of CurrentTimeZone in Win32_ComputerSystem.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>The GMT Offset in minutes discovery is a single discovery that runs once per day.  It will calculate the *current* offset from GMT from the value of CurrentTimeZone in Win32_ComputerSystem.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VirtualMachine.Discovery.True" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This discovery will set the Virtual Machine attribute to True based on the value of Manufacturer in Win32_ComputerSystem.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This discovery will set the Virtual Machine attribute to True based on the value of Manufacturer in Win32_ComputerSystem.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VirtualMachine.Discovery.False" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This discovery will set the Virtual Machine attribute to False based on the value of Manufacturer in Win32_ComputerSystem.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This discovery will set the Virtual Machine attribute to False based on the value of Manufacturer in Win32_ComputerSystem.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryBalloonedMB.Monitor" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This monitor will detect if the VMWare Memory Ballooning is in effect.  See VMWare documentation for more information about Memory Ballooning.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This monitor will detect if the VMWare Memory Ballooning is in effect.  See VMWare documentation for more information about Memory Ballooning.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="VMWare.VirtualMachine.Discovery.VMWare.VirtualMachine.Discovery" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This discovery checks if the Virtual Machine is hosted on a ESX machine.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This discovery checks if the Virtual Machine is hosted on a ESX machine.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWareToolsService" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This monitor checks to see that the VMWare Tools Service is running.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This monitor checks to see that the VMWare Tools Service is running.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.CPUStolenTime" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This rule records the value of CPU Stolen Time for VMWare.</maml:para><maml:para>This rule is disabled by default.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records the value of CPU Stolen Time for VMWare.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.TargetSize" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This rule records the value of Memory Target size for the virtual machine.</maml:para><maml:para>This rule is disabled by default.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records the value of Memory Target size for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.LimitinMhz" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This rule records the Limit in MHz value for the virtual machine processor.</maml:para><maml:para>This rule is disabled by default.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records the Limit in MHz value for the virtual machine processor.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryActiveMB" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This rule records the Active Memory in MB value for the virtual machine.</maml:para><maml:para>This rule is disabled by default.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records the Active Memory in MB value for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryBalloonedMB" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This rule records the amount of Memory consumed by the Memory Balloon feature in MB value for the virtual machine.</maml:para><maml:para>This rule is disabled by default.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records the amount of Memory consumed by the Memory Balloon feature in MB value for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.HostProcessorspeedinMHz" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This rule records the host processor speed in MHz for the virtual machine.</maml:para><maml:para>This rule is disabled by default.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records the host processor speed in MHz for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryLimitMB" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This rule records memory limit in MB for the virtual machine.</maml:para><maml:para>This rule is disabled by default.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records memory limit in MB for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryMappedMB" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This rule records memory mapped value in MB for the virtual machine.</maml:para><maml:para>This rule is disabled by default.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records memory mapped value in MB for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryOverheadMB" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This rule records memory overhead value in MB for the virtual machine.</maml:para><maml:para>This rule is disabled by default.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records memory overhead value in MB for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryReservationMB" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This rule records memory reservation value in MB for the virtual machine.</maml:para><maml:para>This rule is disabled by default.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records memory reservation value in MB for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.Shares" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This rule records VMWare processor shares value for the virtual machine.</maml:para><maml:para>This rule is disabled by default.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records VMWare processor shares value for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.ReservationinMHz" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This rule records VMWare processor reservation value in MHz for the virtual machine.</maml:para><maml:para>This rule is disabled by default.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records VMWare processor reservation value in MHz for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.PercentProcessorTime" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This rule records VMWare processor percent time value for the virtual machine.</maml:para><maml:para>This rule is disabled by default.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records VMWare processor percent time value for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryUsedMB" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This rule records VMWare Memory Used in MB value for the virtual machine.</maml:para><maml:para>This rule is disabled by default.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records VMWare Memory Used in MB value for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemorySwappedMB" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This rule records VMWare Memory Swapped in MB value for the virtual machine.</maml:para><maml:para>This rule is disabled by default.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records VMWare Memory Swapped in MB value for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemoryShares" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This rule records VMWare Memory Shares value for the virtual machine.</maml:para><maml:para>This rule is disabled by default.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records VMWare Memory Shares value for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemorySharedSavedMB" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This rule records VMWare Memory Shared Saved in MB value for the virtual machine.</maml:para><maml:para>This rule is disabled by default.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records VMWare Memory Shared Saved in MB value for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.MemorySharedMB" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This rule records VMWare Memory Shared in MB value for the virtual machine.</maml:para><maml:para>This rule is disabled by default.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records VMWare Memory Shared in MB value for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Windows.Computer.Addendum.VMWare.VirtualMachine.EffectiveVMSpeedinMHz" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This rule records VMWare Effective VM Speed in MHz value for the virtual machine.</maml:para><maml:para>This rule is disabled by default.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records VMWare Effective VM Speed in MHz value for the virtual machine.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
         <KnowledgeArticle ElementID="Microsoft.Windows.Computer.Addendum.SpacedUsedMB.Script.Perf.Rule" Visible="true">
-          <MamlContent><maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10"><maml:title>Summary</maml:title><maml:para>This rule records logical disk spaced used in MB.</maml:para><maml:para>This rule is disabled by default.</maml:para></maml:section></MamlContent>
+          <MamlContent>
+            <maml:section xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+              <maml:title>Summary</maml:title>
+              <maml:para>This rule records logical disk spaced used in MB.</maml:para>
+              <maml:para>This rule is disabled by default.</maml:para>
+            </maml:section>
+          </MamlContent>
         </KnowledgeArticle>
       </KnowledgeArticles>
     </LanguagePack>
