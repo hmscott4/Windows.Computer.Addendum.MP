@@ -3,7 +3,7 @@
   <Manifest>
     <Identity>
       <ID>Windows.Computer.Addendum</ID>
-      <Version>1.0.1.20</Version>
+      <Version>1.0.1.21</Version>
     </Identity>
     <Name>Windows Computer Addendum</Name>
     <References>
@@ -421,7 +421,7 @@
         </DiscoveryTypes>
         <DataSource ID="Windows.Computer.Addendum.VirtualMachine.Discovery.True.DS" TypeID="Windows!Microsoft.Windows.WmiProviderWithClassSnapshotDataMapper">
           <NameSpace>\\$Target/Property[Type="Windows!Microsoft.Windows.Computer"]/NetworkName$\ROOT\CIMV2</NameSpace>
-          <Query>SELECT Manufacturer FROM Win32_ComputerSystem WHERE Manufacturer = "VMware, Inc." OR Manufacturer = "Microsoft Corporation"</Query>
+          <Query>SELECT Manufacturer FROM Win32_ComputerSystem WHERE Manufacturer = "VMware, Inc." OR Manufacturer = "Microsoft Corporation" OR Manufacturer = "Nutanix"</Query>
           <Frequency>86400</Frequency>
           <ClassId>$MPElement[Name="Windows!Microsoft.Windows.Computer"]$</ClassId>
           <InstanceSettings>
